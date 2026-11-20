@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+node_modules/
+design/html/v4/_t*.html
+design/html/v4/_tm.*
+research/

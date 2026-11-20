@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop+ Studio · New catalog</title>
+<link rel="icon" type="image/svg+xml" href="../assets/RCTI%2B_Icon.svg">
+<script>
+(function(){var t,l;try{t=localStorage.getItem('sp-theme');l=localStorage.getItem('sp-lang')}catch(e){}
+var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark')t=q;
+if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t);document.documentElement.lang=l==='id'?'id':'en';})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#E9ECF1;--canvas:#FFFFFF;--panel:#F6F7F9;--hover:#F0F2F5;--line:#E2E5EB;--line-2:#D2D7DF;
+  --ink:#0C1016;--ink-2:#2C3440;--muted:#5D6877;--faint:#8A94A3;
+  --primary:#0C1016;--on-primary:#FFFFFF;--accent:#0A72C9;--accent-soft:#E3F0FB;
+  --live:#D30F5E;--live-soft:#FDE7F0;--sched:#0B6F8C;--sched-soft:#DFF3F8;--warn:#955700;--warn-soft:#FFF2D6;
+  --ok:#137A3E;--ok-soft:#E1F5E8;--draft:#4A5361;--draft-soft:#EDEFF2;
+  --shadow-sm:0 1px 2px rgba(12,16,22,.06);--shadow:0 1px 2px rgba(12,16,22,.06),0 12px 32px -16px rgba(12,16,22,.18);color-scheme:light;
+}
+[data-theme="dark"]{
+  --bg:#050608;--canvas:#0D0F14;--panel:#12151B;--hover:#171B22;--line:#1E222A;--line-2:#2A2F39;
+  --ink:#F1F3F6;--ink-2:#C8CED8;--muted:#8B95A4;--faint:#646E7C;
+  --primary:#F1F3F6;--on-primary:#0B0D12;--accent:#5CB4FF;--accent-soft:rgba(92,180,255,.12);
+  --live:#FF4F8F;--live-soft:rgba(255,79,143,.13);--sched:#4FCBEE;--sched-soft:rgba(79,203,238,.11);--warn:#F4BB52;--warn-soft:rgba(244,187,82,.11);
+  --ok:#4FD493;--ok-soft:rgba(79,212,147,.11);--draft:#B0B7C2;--draft-soft:rgba(176,183,194,.09);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.03) inset;--shadow:0 1px 0 rgba(255,255,255,.04) inset,0 16px 40px -20px rgba(0,0,0,.8);color-scheme:dark;
+}
+:root{--grad:linear-gradient(120deg,#12B5EA 0%,#6A5CF5 50%,#E5177E 100%);--r:14px;--pad:28px}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+[hidden]{display:none!important}
+.spacer{flex:1}
+.shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh;padding:10px 10px 10px 0}
+.side{position:sticky;top:10px;height:calc(100vh - 20px);display:flex;flex-direction:column;gap:4px;padding:6px 14px 6px 16px;overflow:auto}
+.ws{display:flex;align-items:center;gap:10px;padding:8px 8px 14px}
+.mark{width:32px;height:32px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;box-shadow:0 6px 16px -6px rgba(106,92,245,.6)}
+.ws b{display:block;font-size:15px;line-height:1.1}.ws small{display:block;font-size:12px;color:var(--muted)}
+.nav a{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;color:var(--ink-2);font-weight:500}
+.nav a:hover{background:color-mix(in srgb,var(--canvas) 60%,transparent)}
+.nav a[aria-current="page"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow-sm),0 0 0 1px var(--line)}
+.nav .badge{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:11px;padding:1px 7px;border-radius:999px;color:var(--muted);box-shadow:0 0 0 1px var(--line-2) inset}
+.side-foot{margin-top:auto;padding-top:12px;display:flex;gap:8px;align-items:center}
+.seg{display:flex;padding:3px;border-radius:10px;background:color-mix(in srgb,var(--canvas) 55%,transparent);box-shadow:0 0 0 1px var(--line-2) inset}
+.seg button{height:28px;min-width:34px;padding:0 10px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:12px;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow-sm),0 0 0 1px var(--line)}
+.ibtn{width:34px;height:34px;border-radius:10px;border:0;background:color-mix(in srgb,var(--canvas) 55%,transparent);box-shadow:0 0 0 1px var(--line-2) inset;display:grid;place-items:center;color:var(--ink-2)}
+[data-theme="dark"] .i-moon,[data-theme="light"] .i-sun{display:none}
+
+.canvas{background:var(--canvas);border-radius:18px;box-shadow:var(--shadow),0 0 0 1px var(--line);min-width:0;display:flex;flex-direction:column;position:relative}
+.c-head{position:sticky;top:10px;z-index:10;display:flex;align-items:center;gap:14px;padding:16px var(--pad);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--canvas) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:18px 18px 0 0}
+.crumb{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.c-head h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.025em}
+.saved{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.saved i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.saved.saving i{background:var(--warn);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.3}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 14px;border-radius:10px;border:0;background:var(--canvas);box-shadow:0 0 0 1px var(--line-2) inset,var(--shadow-sm);font-weight:600;font-size:13px;white-space:nowrap;transition:background-color .12s,transform .12s,opacity .12s}
+.btn:hover{background:var(--hover)}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:0 8px 20px -10px rgba(12,16,22,.6)}
+.btn.primary:hover{transform:translateY(-1px)}
+.btn.primary[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.btn.lg{height:44px;padding:0 18px;font-size:14px}
+
+.body{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:var(--pad);padding:var(--pad);align-items:start;flex:1}
+.flow{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:16px;position:relative;padding-bottom:20px}
+.step::before{content:"";position:absolute;left:19px;top:44px;bottom:0;width:2px;background:var(--line)}
+.step:last-child::before{display:none}
+.step.done::before{background:var(--ok)}
+.num{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:15px;background:var(--panel);box-shadow:0 0 0 1px var(--line-2) inset;color:var(--muted);position:relative;z-index:1;transition:all .2s}
+.step.active .num{background:var(--primary);color:var(--on-primary);box-shadow:none}
+.step.done .num{background:var(--ok);color:#fff;box-shadow:none}
+.card{border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);transition:box-shadow .2s,border-color .2s;overflow:hidden}
+.step.active .card{border-color:var(--line-2);box-shadow:var(--shadow),0 0 0 3px var(--accent-soft)}
+.card-h{display:flex;align-items:center;gap:10px;padding:16px 20px 0}
+.card-h h2{margin:0;font-size:17px;font-weight:700;letter-spacing:-.015em}
+.req{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--panel);color:var(--muted);box-shadow:0 0 0 1px var(--line) inset}
+.req.opt{background:transparent}
+.howto{display:flex;gap:10px;margin:12px 20px 0;padding:12px 14px;border-radius:12px;background:var(--panel);color:var(--ink-2);font-size:13px;line-height:1.55}
+.howto svg{color:var(--accent);margin-top:1px}
+.fields{padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f > span{font-size:13px;font-weight:600}
+.f small{font-size:12px;color:var(--muted)}
+.in{height:44px;padding:0 14px;border-radius:11px;border:0;box-shadow:0 0 0 1px var(--line-2) inset;background:var(--canvas);font-size:15px;width:100%;transition:box-shadow .15s}
+.in:focus{outline:0;box-shadow:0 0 0 2px var(--accent) inset}
+.in.big{height:54px;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.sugg{display:flex;flex-wrap:wrap;gap:6px}
+.sugg button{height:30px;padding:0 12px;border-radius:999px;border:0;background:var(--panel);box-shadow:0 0 0 1px var(--line) inset;font-size:12px;color:var(--ink-2)}
+.sugg button:hover{box-shadow:0 0 0 1px var(--line-2) inset;background:var(--hover)}
+.inline{display:flex;gap:8px}
+.inline .in{flex:1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:14px;box-shadow:0 0 0 1px var(--line-2) inset;cursor:pointer;transition:box-shadow .15s,background-color .15s}
+.opt:hover{background:var(--panel)}
+.opt:has(input:checked){box-shadow:0 0 0 2px var(--ink) inset;background:var(--panel)}
+.opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.opt input{position:absolute;opacity:0}
+.opt .top{display:flex;align-items:center;gap:10px}
+.opt .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--canvas);box-shadow:0 0 0 1px var(--line) inset}
+.opt b{font-size:15px}
+.opt .radio{margin-left:auto;width:18px;height:18px;border-radius:50%;box-shadow:0 0 0 1.5px var(--line-2) inset}
+.opt:has(input:checked) .radio{box-shadow:0 0 0 5px var(--ink) inset}
+.opt p{margin:0;font-size:13px;color:var(--muted)}
+.gets{list-style:none;margin:0;padding:10px 0 0;border-top:1px dashed var(--line-2);display:flex;flex-direction:column;gap:6px;font-size:13px}
+.gets li{display:flex;gap:8px;align-items:center}
+.gets .y{color:var(--ok)}.gets .n{color:var(--faint)}
+.gets li.no{color:var(--muted)}
+.slots{border-radius:12px;box-shadow:0 0 0 1px var(--line-2) inset;overflow:hidden}
+.slot{display:grid;grid-template-columns:20px 84px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);cursor:pointer}
+.slot:last-child{border-bottom:0}
+.slot:hover{background:var(--panel)}
+.slot:has(input:checked){background:var(--accent-soft)}
+.slot input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.slot .t{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted)}
+.slot b{font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.chip.draft{background:var(--draft-soft);color:var(--draft)}.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.later{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--ink-2);cursor:pointer}
+.later input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.next-list{list-style:none;margin:0;padding:16px 20px 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.next-list li{display:flex;gap:10px;padding:12px;border-radius:12px;background:var(--panel);font-size:13px}
+.next-list b{display:block;font-size:13px}
+.next-list span{color:var(--muted);font-size:12px}
+.next-list svg{color:var(--ink-2)}
+
+.rail{position:sticky;top:96px;display:flex;flex-direction:column;gap:16px}
+.pv{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pv-art{height:132px;background:var(--grad);position:relative;display:grid;place-items:center;color:#fff}
+.pv-art::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 10px,transparent 10px 20px)}
+.pv-art span{position:relative;z-index:1;font-size:12px;font-weight:600;opacity:.9;text-align:center;padding:0 24px}
+.pv-b{padding:14px 16px}
+.pv-b b{display:block;font-size:16px;letter-spacing:-.01em;word-break:break-word}
+.pv dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:13px}
+.pv dt{color:var(--muted)}.pv dd{margin:0;text-align:right}
+.check{border:1px solid var(--line);border-radius:var(--r);padding:6px}
+.check h3{margin:0;padding:10px 12px 6px;font-size:13px;font-weight:700}
+.check a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;font-size:13px}
+.check a:hover{background:var(--panel)}
+.check .ck{width:20px;height:20px;border-radius:50%;box-shadow:0 0 0 1.5px var(--line-2) inset;display:grid;place-items:center;color:#fff;flex:none}
+.check a.done .ck{background:var(--ok);box-shadow:none}
+.check a.done span{color:var(--muted)}
+.check small{margin-left:auto;font-size:11px;color:var(--faint)}
+.note{display:flex;gap:10px;padding:12px 14px;border-radius:12px;background:var(--ok-soft);color:var(--ok);font-size:12px;line-height:1.5}
+
+.bar{position:sticky;bottom:10px;z-index:10;display:flex;align-items:center;gap:12px;margin:0 10px 10px;padding:12px 16px;border-radius:14px;background:color-mix(in srgb,var(--canvas) 90%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--shadow),0 0 0 1px var(--line-2)}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.prog .track{width:120px;height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.prog .fill{height:100%;background:var(--ok);border-radius:6px;transition:width .3s}
+
+@media (max-width:1180px){.body{grid-template-columns:1fr}.rail{position:static;display:grid;grid-template-columns:1fr 1fr}.rail .note{grid-column:1/-1}}
+@media (max-width:900px){.shell{grid-template-columns:1fr;padding:0}.side{display:none}.canvas{border-radius:0;box-shadow:none}.c-head{top:0;border-radius:0}:root{--pad:16px}.bar{bottom:0;margin:0;border-radius:0}}
+@media (max-width:640px){.opts,.row2,.next-list,.rail{grid-template-columns:1fr}.step{grid-template-columns:1fr}.step::before{display:none}.num{width:32px;height:32px;position:absolute;top:14px;right:14px;font-size:13px}.c-head .crumb,.prog .track{display:none}.slot{grid-template-columns:20px 64px minmax(0,1fr)}.slot .chip{display:none}}
+@media (max-width:640px){.bar{flex-wrap:wrap;row-gap:10px}.bar .prog{flex-basis:100%}.bar .btn{flex:1}.c-head .saved{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
+  <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-draft" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-approve" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Z"/><path d="M14 3v4h4"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 7h12l1 14H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1 0 1.5-.8 1.5-1.5 0-1.2-1-1.5-1-2.5S13.3 15 14.5 15H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V3h9l9 9-9 9-9-9Z"/><circle cx="8" cy="8" r="1.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="shell">
+  <aside class="side" aria-label="Sidebar">
+    <a class="ws" href="index.html"><span class="mark">S+</span><span><b>Shop+</b><small>RCTI+ Interactive</small></span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html"><svg class="i"><use href="#i-radio"/></svg><span data-i18n="nav.onair">On air</span></a>
+      <a href="#"><svg class="i"><use href="#i-grid"/></svg><span data-i18n="nav.catalogs">Catalogs</span></a>
+      <a href="index.html#drafts" aria-current="page"><svg class="i"><use href="#i-draft"/></svg><span data-i18n="nav.drafts">Drafts</span><span class="badge">[count]</span></a>
+      <a href="index.html#approvals"><svg class="i"><use href="#i-approve"/></svg><span data-i18n="nav.approvals">Approvals</span></a>
+    </nav>
+    <div class="side-foot">
+      <div class="seg" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="id" aria-pressed="false">ID</button></div>
+      <span class="spacer"></span>
+      <button class="ibtn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i i-sun"><use href="#i-sun"/></svg><svg class="i i-moon"><use href="#i-moon"/></svg></button>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <header class="c-head">
+      <div><div class="crumb"><a href="index.html#drafts" data-i18n="nav.drafts">Drafts</a><span>/</span></div><h1 data-i18n="h1">New catalog</h1></div>
+      <span class="chip draft" data-i18n="draft">Draft</span>
+      <span class="spacer"></span>
+      <span class="saved" id="saved" aria-live="polite"><i></i><span id="savedTxt" data-i18n="savedNow">Saved just now</span></span>
+      <a class="btn" href="index.html#drafts" data-i18n="saveExit">Save and exit</a>
+    </header>
+
+    <div class="body">
+      <div class="flow">
+        <!-- 1 -->
+        <section class="step active" data-step="name" id="s-name">
+          <span class="num">1</span>
+          <div class="card">
+            <div class="card-h"><h2 data-i18n="s1">Name the catalog</h2><span class="req" data-i18n="required">Required</span></div>
+            <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s1h">Use the team pattern so anyone can find it later: Channel · Slot · Week · Day. Tap a suggestion to start from it, then fill in the week and day.</span></div>
+            <div class="fields">
+              <label class="f"><span data-i18n="s1f">Catalog name</span><input class="in big" id="name" autocomplete="off" data-i18n-ph="s1ph" placeholder="e.g. GTV · Primetime · Week 2 · Friday"></label>
+              <div class="sugg" aria-label="Suggestions"><button type="button">RCTI · Non-Primetime · [week] · [day]</button><button type="button">GTV · Primetime · [week] · [day]</button><button type="button">MNCTV · Non-Primetime · [week] · [day]</button><button type="button">iNews · Non-Primetime · [week] · [day]</button></div>
+            </div>
+          </div>
+        </section>
+        <!-- 2 -->
+        <section class="step" data-step="brand" id="s-brand">
+          <span class="num">2</span>
+          <div class="card">
+            <div class="card-h"><h2 data-i18n="s2">Choose the brand</h2><span class="req" data-i18n="required">Required</span></div>
+            <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s2h">A brand groups catalogs in lists and reports, for example by sponsor or partner. It doesn't change which products show or their prices.</span></div>
+            <div class="fields">
+              <label class="f"><span data-i18n="s2f">Brand</span>
+                <div class="inline"><select class="in" id="brand"><option value="" data-i18n="pick">Pick a brand</option><option>Shopee Affiliate</option><option>Shop+ Affiliate</option><option>Uniqlo</option></select>
+                <button class="btn lg" type="button" id="newBrandBtn"><svg class="i"><use href="#i-plus"/></svg><span data-i18n="newBrand">New brand</span></button></div></label>
+              <div class="inline" id="newBrandRow" hidden><input class="in" id="newBrandIn" data-i18n-ph="brandPh" placeholder="Brand name"><button class="btn lg primary" type="button" id="addBrand" data-i18n="add">Add</button></div>
+            </div>
+          </div>
+        </section>
+        <!-- 3 -->
+        <section class="step" data-step="start" id="s-start">
+          <span class="num">3</span>
+          <div class="card">
+            <div class="card-h"><h2 data-i18n="s3">Pick a starting point</h2><span class="req" data-i18n="required">Required</span></div>
+            <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s3h">Duplicate when the show sells products similar to an earlier catalog. You keep what works and change only what's new. Start blank for a new show or a new partner.</span></div>
+            <div class="fields">
+              <div class="opts" role="radiogroup" aria-label="Starting point">
+                <label class="opt"><input type="radio" name="start" value="dup">
+                  <span class="top"><span class="ic"><svg class="i"><use href="#i-copy"/></svg></span><b data-i18n="dup">Duplicate a catalog</b><span class="radio"></span></span>
+                  <p data-i18n="dupP">Fastest for weekly shows.</p>
+                  <ul class="gets"><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g1">Products and their order</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g2">Theme and colours</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g3">Tracking labels</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="g4">Where it airs (you pick the new show)</span></li></ul></label>
+                <label class="opt"><input type="radio" name="start" value="blank">
+                  <span class="top"><span class="ic"><svg class="i"><use href="#i-file"/></svg></span><b data-i18n="blank">Start blank</b><span class="radio"></span></span>
+                  <p data-i18n="blankP">For a new show or partner.</p>
+                  <ul class="gets"><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b1">No products yet</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="b2">Default theme (RCTI+ Night)</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b3">Empty tracking labels</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b4">No placement</span></li></ul></label>
+              </div>
+              <label class="f" id="dupPick" hidden><span data-i18n="which">Which catalog do you want to copy?</span>
+                <select class="in" id="dupSel"><option>GTV · Non-Primetime · Sept W1 Thu</option><option>iNews · Non-Primetime · Sept W1 Thu</option><option>MNCTV · Non-Primetime · Sept W1 Thu</option><option>Fashion for RCTI</option></select></label>
+            </div>
+          </div>
+        </section>
+        <!-- 4 -->
+        <section class="step" data-step="air" id="s-air">
+          <span class="num">4</span>
+          <div class="card">
+            <div class="card-h"><h2 data-i18n="s4">Choose where it airs</h2><span class="req opt" data-i18n="optional">Optional now</span></div>
+            <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s4h">Pick the program from the channel schedule. The Shop panel turns on when the program starts and off when it ends. Not sure yet? Tick “Decide later” and it stays a draft.</span></div>
+            <div class="fields">
+              <div class="row2">
+                <label class="f"><span data-i18n="ctype">Content type</span><select class="in"><option>Live TV</option><option>Live event</option><option>Stories</option><option>Short+</option></select></label>
+                <label class="f"><span data-i18n="channel">Channel</span><select class="in" id="chan"><option>GTV</option><option>RCTI</option><option>MNCTV</option><option>iNews</option></select></label>
+              </div>
+              <div class="f"><span data-i18n="program">Program</span>
+                <div class="slots" role="radiogroup" aria-label="Program">
+                  <label class="slot"><input type="radio" name="prog" value="Pada Zaman Dahulu"><span class="t">[time]</span><b>Pada Zaman Dahulu</b><span></span></label>
+                  <label class="slot"><input type="radio" name="prog" value="[program]"><span class="t">[time]</span><b>[program]</b><span class="chip warn" data-i18n="taken">Has a catalog</span></label>
+                  <label class="slot"><input type="radio" name="prog" value="[program] "><span class="t">[time]</span><b>[program]</b><span></span></label>
+                </div></div>
+              <label class="later"><input type="checkbox" id="later"><span data-i18n="later">Decide later</span></label>
+            </div>
+          </div>
+        </section>
+        <!-- next -->
+        <section class="step" data-step="next">
+          <span class="num"><svg class="i"><use href="#i-arrow"/></svg></span>
+          <div class="card">
+            <div class="card-h"><h2 data-i18n="s5">Then, in the builder</h2></div>
+            <ul class="next-list">
+              <li><svg class="i"><use href="#i-bag"/></svg><div><b data-i18n="n1">Add products</b><span data-i18n="n1b">Search Shopee, paste links, add by hand or upload Excel</span></div></li>
+              <li><svg class="i"><use href="#i-palette"/></svg><div><b data-i18n="n2">Pick the look</b><span data-i18n="n2b">See it on a phone as you change it</span></div></li>
+              <li><svg class="i"><use href="#i-tag"/></svg><div><b data-i18n="n3">Label tracking</b><span data-i18n="n3b">So Shopee reports show the platform and program</span></div></li>
+              <li><svg class="i"><use href="#i-send"/></svg><div><b data-i18n="n4">Submit for approval</b><span data-i18n="n4b">Nothing reaches viewers until a publisher approves</span></div></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <aside class="rail" aria-label="Summary">
+        <div class="pv">
+          <div class="pv-art"><span data-i18n="pvArt">Products show here after you add them</span></div>
+          <div class="pv-b"><b id="pvName" data-i18n="untitled">Untitled catalog</b>
+            <dl><dt data-i18n="status">Status</dt><dd><span class="chip draft" data-i18n="draft">Draft</span></dd>
+              <dt data-i18n="s2f">Brand</dt><dd id="pvBrand">—</dd><dt data-i18n="from">Starts from</dt><dd id="pvStart">—</dd><dt data-i18n="airs">Airs</dt><dd id="pvAir">—</dd></dl></div>
+        </div>
+        <nav class="check" aria-label="Checklist">
+          <h3 data-i18n="checklist">Checklist</h3>
+          <a href="#s-name" data-ck="name"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c1">Name</span></a>
+          <a href="#s-brand" data-ck="brand"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c2">Brand</span></a>
+          <a href="#s-start" data-ck="start"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c3">Starting point</span></a>
+          <a href="#s-air" data-ck="air"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c4">Where it airs</span><small data-i18n="optShort">optional</small></a>
+        </nav>
+        <div class="note"><svg class="i"><use href="#i-check"/></svg><span data-i18n="note">Saved as you type. If you stop now, find it under Drafts on the On air page.</span></div>
+      </aside>
+    </div>
+
+    <div class="bar">
+      <div class="prog"><div class="track"><div class="fill" id="fill" style="width:0"></div></div><span id="progTxt">0 / 3</span><span data-i18n="reqDone">required steps done</span></div>
+      <span class="spacer"></span>
+      <a class="btn lg" href="index.html#drafts" data-i18n="saveDraft">Save as draft</a>
+      <a class="btn lg primary" href="builder.html" id="create" aria-disabled="true"><span data-i18n="create">Create and open builder</span><svg class="i"><use href="#i-arrow"/></svg></a>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement,lang='en';
+  var ID={"nav.onair":"Tayang","nav.catalogs":"Katalog","nav.drafts":"Draf","nav.approvals":"Persetujuan","h1":"Katalog baru","draft":"Draf","savedNow":"Tersimpan barusan","saveExit":"Simpan dan keluar",
+  "s1":"Beri nama katalog","required":"Wajib","s1h":"Pakai pola tim agar mudah dicari: Kanal · Slot · Minggu · Hari. Ketuk saran untuk memulai, lalu isi minggu dan harinya.","s1f":"Nama katalog","s1ph":"mis. GTV · Primetime · Minggu 2 · Jumat",
+  "s2":"Pilih brand","s2h":"Brand mengelompokkan katalog di daftar dan laporan, misalnya per sponsor atau mitra. Brand tidak mengubah produk yang tampil atau harganya.","s2f":"Brand","pick":"Pilih brand","newBrand":"Brand baru","brandPh":"Nama brand","add":"Tambah",
+  "s3":"Pilih titik awal","s3h":"Duplikat jika acara menjual produk yang mirip dengan katalog sebelumnya. Yang sudah bagus tetap, Anda cukup mengubah yang baru. Mulai kosong untuk acara atau mitra baru.",
+  "dup":"Duplikat katalog","dupP":"Paling cepat untuk acara mingguan.","g1":"Produk dan urutannya","g2":"Tema dan warna","g3":"Label pelacakan","g4":"Tempat tayang (Anda pilih acara baru)",
+  "blank":"Mulai kosong","blankP":"Untuk acara atau mitra baru.","b1":"Belum ada produk","b2":"Tema bawaan (RCTI+ Night)","b3":"Label pelacakan kosong","b4":"Belum ada penempatan","which":"Katalog mana yang ingin disalin?",
+  "s4":"Pilih tempat tayang","optional":"Opsional","s4h":"Pilih program dari jadwal kanal. Panel Shop menyala saat program mulai dan mati saat selesai. Belum yakin? Centang “Putuskan nanti” dan katalog tetap draf.",
+  "ctype":"Jenis konten","channel":"Kanal","program":"Program","taken":"Sudah ada katalog","later":"Putuskan nanti",
+  "s5":"Lalu, di builder","n1":"Tambah produk","n1b":"Cari di Shopee, tempel tautan, tambah manual, atau unggah Excel","n2":"Pilih tampilan","n2b":"Lihat langsung di ponsel saat Anda mengubahnya","n3":"Beri label pelacakan","n3b":"Agar laporan Shopee menunjukkan platform dan program","n4":"Ajukan persetujuan","n4b":"Tidak ada yang tampil ke penonton sebelum publisher menyetujui",
+  "pvArt":"Produk tampil di sini setelah ditambahkan","untitled":"Katalog tanpa nama","status":"Status","from":"Mulai dari","airs":"Tayang","checklist":"Daftar periksa","c1":"Nama","c2":"Brand","c3":"Titik awal","c4":"Tempat tayang","optShort":"opsional",
+  "note":"Tersimpan otomatis. Jika berhenti sekarang, temukan di Draf pada halaman Tayang.","reqDone":"langkah wajib selesai","saveDraft":"Simpan sebagai draf","create":"Buat dan buka builder"};
+  var nodes=document.querySelectorAll('[data-i18n]');nodes.forEach(function(n){n.dataset.en=n.textContent});
+  var phs=document.querySelectorAll('[data-i18n-ph]');phs.forEach(function(n){n.dataset.enPh=n.placeholder});
+  function T(k,en){return lang==='id'&&ID[k]?ID[k]:en}
+  function setLang(l){lang=l;root.lang=l;
+    nodes.forEach(function(n){if(n.id==='pvName'&&nameIn.value)return;n.textContent=T(n.dataset.i18n,n.dataset.en)});
+    phs.forEach(function(n){n.placeholder=T(n.dataset.i18nPh,n.dataset.enPh)});
+    document.querySelectorAll('[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
+    try{localStorage.setItem('sp-lang',l)}catch(e){}update()}
+  var nameIn=document.getElementById('name'),brand=document.getElementById('brand');
+  document.querySelectorAll('[data-lang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.addEventListener('click',function(){
+    var v=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',v);try{localStorage.setItem('sp-theme',v)}catch(e){}})});
+
+  // active step follows focus
+  var steps=document.querySelectorAll('.step');
+  steps.forEach(function(s){s.addEventListener('focusin',function(){steps.forEach(function(x){x.classList.toggle('active',x===s)})})});
+
+  // autosave indicator
+  var saved=document.getElementById('saved'),savedTxt=document.getElementById('savedTxt'),st;
+  function autosave(){saved.classList.add('saving');savedTxt.textContent=lang==='id'?'Menyimpan…':'Saving…';clearTimeout(st);
+    st=setTimeout(function(){saved.classList.remove('saving');savedTxt.textContent=T('savedNow','Saved just now')},700)}
+  document.querySelector('.flow').addEventListener('input',autosave);document.querySelector('.flow').addEventListener('change',autosave);
+
+  function mark(key,done){var s=document.querySelector('.step[data-step="'+key+'"]');s.classList.toggle('done',done);
+    s.querySelector('.num').innerHTML=done?'<svg class="i"><use href="#i-check"/></svg>':String(['name','brand','start','air'].indexOf(key)+1);
+    document.querySelector('[data-ck="'+key+'"]').classList.toggle('done',done)}
+  function update(){
+    var n=nameIn.value.trim()!=='',b=brand.value!=='',st=document.querySelector('input[name="start"]:checked'),pr=document.querySelector('input[name="prog"]:checked'),later=document.getElementById('later').checked;
+    mark('name',n);mark('brand',b);mark('start',!!st);mark('air',!!pr||later);
+    var c=(n?1:0)+(b?1:0)+(st?1:0);
+    document.getElementById('fill').style.width=(c/3*100)+'%';document.getElementById('progTxt').textContent=c+' / 3';
+    document.getElementById('create').setAttribute('aria-disabled',String(c<3));
+    document.getElementById('pvName').textContent=nameIn.value||T('untitled','Untitled catalog');
+    document.getElementById('pvBrand').textContent=brand.value||'—';
+    document.getElementById('pvStart').textContent=!st?'—':st.value==='dup'?(lang==='id'?'Duplikat':'Duplicate'):(lang==='id'?'Kosong':'Blank');
+    document.getElementById('pvAir').textContent=later?(lang==='id'?'Nanti':'Later'):pr?pr.value.trim()+' · '+document.getElementById('chan').value:'—';
+    document.getElementById('dupPick').hidden=!(st&&st.value==='dup');
+  }
+  document.querySelector('.flow').addEventListener('input',update);document.querySelector('.flow').addEventListener('change',update);
+  document.querySelectorAll('.sugg button').forEach(function(b){b.addEventListener('click',function(){nameIn.value=b.textContent;update();autosave();nameIn.focus()})});
+  document.getElementById('newBrandBtn').addEventListener('click',function(){var r=document.getElementById('newBrandRow');r.hidden=false;document.getElementById('newBrandIn').focus()});
+  document.getElementById('addBrand').addEventListener('click',function(){var v=document.getElementById('newBrandIn').value.trim();if(!v)return;
+    var o=document.createElement('option');o.textContent=v;brand.appendChild(o);brand.value=v;document.getElementById('newBrandRow').hidden=true;update();autosave()});
+  setLang(root.lang==='id'?'id':'en');
+})();
+</script>
+</body>
+</html>

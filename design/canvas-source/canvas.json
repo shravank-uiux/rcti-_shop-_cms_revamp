@@ -1,0 +1,15 @@
+{"v":3,"createdOnFiles":{"v":1,"at":"2026-11-17T11:12:03Z"},"title":"Shop+ CMS Revamp: Core Flow","launch":{"view":"canvas"},"pages":[],
+"boards":{
+"Main.dc.html":{"x":0,"y":0,"w":1440,"h":980,"title":"0 · Catalogs list","expand":"fill","is_interactive":true},
+"Step1_Catalog.dc.html":{"x":1520,"y":0,"w":1440,"h":980,"title":"1 · Catalog","expand":"fill","is_interactive":true},
+"Step2_Products.dc.html":{"x":3040,"y":0,"w":1440,"h":980,"title":"2 · Products","expand":"fill","is_interactive":true},
+"Step3_Placement.dc.html":{"x":4560,"y":0,"w":1440,"h":1040,"title":"3 · Placement","expand":"fill","is_interactive":true},
+"Step4_Review.dc.html":{"x":6080,"y":0,"w":1440,"h":980,"title":"4 · Review and go live","expand":"fill","is_interactive":true},
+"PhonePreview.dc.html":{"x":0,"y":1200,"w":320,"h":640,"title":"Shop panel preview (component)"}
+},
+"order":["Main.dc.html","Step1_Catalog.dc.html","Step2_Products.dc.html","Step3_Placement.dc.html","Step4_Review.dc.html","PhonePreview.dc.html"],
+"notes":{
+"flowTitle":{"x":0,"y":-300,"text":"Core flow: put products on a show in 4 steps, one tool","kind":"title1","maxW":7520},
+"assumptions":{"x":440,"y":1200,"w":460,"text":"Assumptions for this first pass:\n• Catalogue CMS and Interactive CMS are merged; Go live creates the activity behind the scenes.\n• English UI; Bahasa toggle to follow.\n• Sample rows use names seen in the walkthrough; prices, counts and dates are placeholders.\n• Desktop admin first; layouts wrap down to tablet.","fill":"orange"}
+},
+"designSystems":[]}

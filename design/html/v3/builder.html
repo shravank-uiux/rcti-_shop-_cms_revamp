@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop+ Studio · Builder</title>
+<link rel="icon" type="image/svg+xml" href="../assets/RCTI%2B_Icon.svg">
+<script>
+(function(){var t,l;try{t=localStorage.getItem('sp-theme');l=localStorage.getItem('sp-lang')}catch(e){}
+var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark')t=q;
+if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t);document.documentElement.lang=l==='id'?'id':'en';})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#E9ECF1;--canvas:#FFFFFF;--panel:#F6F7F9;--hover:#F0F2F5;--line:#E2E5EB;--line-2:#D2D7DF;
+  --ink:#0C1016;--ink-2:#2C3440;--muted:#5D6877;--faint:#8A94A3;
+  --primary:#0C1016;--on-primary:#FFFFFF;--accent:#0A72C9;--accent-soft:#E3F0FB;
+  --live:#D30F5E;--live-soft:#FDE7F0;--sched:#0B6F8C;--sched-soft:#DFF3F8;--warn:#955700;--warn-soft:#FFF2D6;
+  --ok:#137A3E;--ok-soft:#E1F5E8;--draft:#4A5361;--draft-soft:#EDEFF2;
+  --floor:radial-gradient(circle at 1px 1px,rgba(12,16,22,.09) 1px,transparent 0) 0 0/18px 18px,linear-gradient(180deg,#F7F8FA,#EEF0F4);
+  --shadow-sm:0 1px 2px rgba(12,16,22,.06);--shadow:0 1px 2px rgba(12,16,22,.06),0 12px 32px -16px rgba(12,16,22,.18);color-scheme:light;
+}
+[data-theme="dark"]{
+  --bg:#050608;--canvas:#0D0F14;--panel:#12151B;--hover:#171B22;--line:#1E222A;--line-2:#2A2F39;
+  --ink:#F1F3F6;--ink-2:#C8CED8;--muted:#8B95A4;--faint:#646E7C;
+  --primary:#F1F3F6;--on-primary:#0B0D12;--accent:#5CB4FF;--accent-soft:rgba(92,180,255,.12);
+  --live:#FF4F8F;--live-soft:rgba(255,79,143,.13);--sched:#4FCBEE;--sched-soft:rgba(79,203,238,.11);--warn:#F4BB52;--warn-soft:rgba(244,187,82,.11);
+  --ok:#4FD493;--ok-soft:rgba(79,212,147,.11);--draft:#B0B7C2;--draft-soft:rgba(176,183,194,.09);
+  --floor:radial-gradient(circle at 1px 1px,rgba(255,255,255,.07) 1px,transparent 0) 0 0/18px 18px,linear-gradient(180deg,#0F1218,#090B0F);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.03) inset;--shadow:0 1px 0 rgba(255,255,255,.04) inset,0 16px 40px -20px rgba(0,0,0,.8);color-scheme:dark;
+}
+:root{--grad:linear-gradient(120deg,#12B5EA 0%,#6A5CF5 50%,#E5177E 100%);--r:14px}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"Schibsted Grotesk",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+[hidden]{display:none!important}
+.spacer{flex:1}
+
+/* shell with icon rail */
+.shell{display:grid;grid-template-columns:64px minmax(0,1fr);height:100vh;padding:10px 10px 10px 0}
+.rail{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;margin-bottom:10px;box-shadow:0 6px 16px -6px rgba(106,92,245,.6)}
+.rail a{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--muted)}
+.rail a:hover{background:color-mix(in srgb,var(--canvas) 60%,transparent);color:var(--ink)}
+.rail a.mark{width:34px;height:34px;color:#fff;background:var(--grad)}
+.rail a[aria-current="page"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow-sm),0 0 0 1px var(--line)}
+.rail .bottom{margin-top:auto;display:flex;flex-direction:column;gap:6px;align-items:center}
+.ibtn{width:36px;height:36px;border-radius:10px;border:0;background:color-mix(in srgb,var(--canvas) 55%,transparent);box-shadow:0 0 0 1px var(--line-2) inset;display:grid;place-items:center;color:var(--ink-2);font-size:11px;font-weight:700}
+[data-theme="dark"] .i-moon,[data-theme="light"] .i-sun{display:none}
+
+.canvas{background:var(--canvas);border-radius:18px;box-shadow:var(--shadow),0 0 0 1px var(--line);min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.c-head{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.back{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;box-shadow:0 0 0 1px var(--line-2) inset;color:var(--ink-2)}
+.title{min-width:0}
+.title small{display:block;font-size:12px;color:var(--muted)}
+.title b{display:block;font-size:16px;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);white-space:nowrap}
+.saved i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.seg{display:flex;padding:3px;border-radius:10px;background:var(--panel);box-shadow:0 0 0 1px var(--line) inset}
+.seg button{height:28px;min-width:34px;padding:0 10px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:12px;font-weight:600;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--canvas);color:var(--ink);box-shadow:var(--shadow-sm),0 0 0 1px var(--line)}
+.demo{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 14px;border-radius:10px;border:0;background:var(--canvas);box-shadow:0 0 0 1px var(--line-2) inset,var(--shadow-sm);font-weight:600;font-size:13px;white-space:nowrap;transition:background-color .12s,transform .12s}
+.btn:hover{background:var(--hover)}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:0 8px 20px -10px rgba(12,16,22,.6)}
+.btn.primary:hover{transform:translateY(-1px)}
+.btn.danger{color:var(--live);box-shadow:0 0 0 1px color-mix(in srgb,var(--live) 35%,transparent) inset}
+.btn.red{background:var(--live);color:#fff;box-shadow:none}
+.btn.sm{height:30px;padding:0 10px;font-size:12px;border-radius:8px}
+.btn.quiet{box-shadow:none;background:transparent}
+.btn.quiet:hover{background:var(--hover)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.chip .d{width:6px;height:6px;border-radius:50%;background:currentColor}
+.chip.live{background:var(--live-soft);color:var(--live)}.chip.sched{background:var(--sched-soft);color:var(--sched)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.draft{background:var(--draft-soft);color:var(--draft)}.chip.line{box-shadow:0 0 0 1px var(--line-2) inset;color:var(--muted)}
+.pulse{animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 55%,transparent)}70%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+.banner{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--line);font-size:13px}
+.banner.ed{background:var(--sched-soft);color:var(--ink-2)}
+.banner.pub{background:var(--warn-soft);color:var(--ink-2)}
+.banner svg{color:var(--sched)}
+.banner.pub svg{color:var(--warn)}
+body[data-role="editor"] [data-for="publisher"],body[data-role="publisher"] [data-for="editor"]{display:none!important}
+
+/* panes */
+.panes{flex:1;min-height:0;display:grid;grid-template-columns:340px minmax(0,1fr) 360px}
+.pane{display:flex;flex-direction:column;min-height:0;min-width:0}
+.pane+.pane{border-left:1px solid var(--line)}
+.p-h{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.p-h h2{margin:0;font-size:14px;font-weight:700}
+.p-h .n{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted)}
+.p-tools{display:flex;flex-direction:column;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.search{display:flex;align-items:center;gap:8px;height:36px;padding:0 10px;border-radius:10px;box-shadow:0 0 0 1px var(--line-2) inset;background:var(--panel)}
+.search input{border:0;outline:0;background:transparent;flex:1;min-width:0}
+.scroll{overflow:auto;min-height:0;flex:1}
+.plist{list-style:none;margin:0;padding:6px 8px}
+.prow{display:grid;grid-template-columns:14px 44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px;border-radius:12px;position:relative}
+.prow:hover{background:var(--panel)}
+.prow.feat{background:var(--live-soft)}
+.prow .grip{color:var(--faint);cursor:grab}
+.pth{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:rgba(255,255,255,.92)}
+.pth svg{width:20px;height:20px;stroke-width:1.4}
+.prow b{display:block;font-size:13px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .sub{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:3px;font-size:12px;color:var(--muted)}
+.prow .chip{height:19px;font-size:10px;padding:0 6px}
+.prow .acts{display:flex;gap:2px;opacity:.55;transition:opacity .12s}
+.prow:hover .acts,.prow.feat .acts,.prow:focus-within .acts{opacity:1}
+.mini{width:30px;height:30px;border-radius:8px;border:0;background:transparent;display:grid;place-items:center;color:var(--muted)}
+.mini:hover{background:var(--canvas);color:var(--ink);box-shadow:0 0 0 1px var(--line) inset}
+.mini[aria-pressed="true"]{color:var(--live)}
+.mini.pin[aria-pressed="true"]{color:var(--accent)}
+.limit{display:flex;align-items:center;gap:8px;margin:4px 16px 16px;padding:10px 12px;border-radius:10px;background:var(--panel);font-size:12px;color:var(--muted)}
+.t1{background:linear-gradient(140deg,#F2C2A6,#C9734C)}.t2{background:linear-gradient(140deg,#A9C9F5,#3E6FD0)}
+.t3{background:linear-gradient(140deg,#3A3A44,#6E6E7B)}.t4{background:linear-gradient(140deg,#F6D776,#D48A12)}
+.t5{background:linear-gradient(140deg,#B9E4D2,#2F8F6B)}.t6{background:linear-gradient(140deg,#E6B7DD,#9B3F8C)}.t7{background:linear-gradient(140deg,#D9D4CB,#8F8778)}
+
+/* stage */
+.stage{background:var(--floor);align-items:center;justify-content:flex-start;gap:16px;padding:18px 20px 22px;overflow:auto}
+.stage-h{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.phone{--p-bg:#101114;--p-card:#1B1D22;--p-title:#FFFFFF;--p-price:#FF5C8D;--p-badge:#E2127A;--p-btn:#FFFFFF;--p-btn-ink:#101114;--p-muted:#9AA0AA;
+  width:300px;border-radius:44px;padding:9px;background:#0B0C0F;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 50px 90px -40px rgba(0,0,0,.6),0 0 0 1px var(--line-2);flex:none}
+.scr{position:relative;border-radius:36px;overflow:hidden;height:600px;background:var(--p-bg);display:flex;flex-direction:column;transition:background-color .3s}
+.vid{position:relative;height:176px;flex:none;background:linear-gradient(140deg,#24305A,#6B2457,#1A2140,#3B1C4F);background-size:220% 220%;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{from{background-position:0 0}to{background-position:100% 100%}}
+.vt{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:11px;font-weight:600}
+.lv{display:inline-flex;align-items:center;gap:5px;background:#E5177E;color:#fff;font-size:10px;font-weight:800;letter-spacing:.06em;padding:3px 7px;border-radius:5px}
+.lv i{width:5px;height:5px;border-radius:50%;background:#fff}
+.vtitle{position:absolute;left:14px;bottom:24px;color:#fff;font-size:13px;font-weight:700}
+.nudge{position:absolute;left:10px;right:10px;bottom:20px;display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:7px;border-radius:14px;background:rgba(12,13,16,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset;opacity:0;transform:translateY(12px);transition:all .45s cubic-bezier(.2,.8,.2,1);z-index:3}
+.nudge.show{opacity:1;transform:none}
+.nudge .pth{width:44px;height:44px}
+.nudge small{display:block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#FF8DB3}
+.nudge b{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nudge .go{height:26px;padding:0 10px;border-radius:999px;border:0;background:#fff;color:#101114;font-size:10px;font-weight:800}
+.sheet{flex:1;background:var(--p-bg);border-radius:20px 20px 0 0;margin-top:-14px;position:relative;z-index:2;overflow:hidden;transition:background-color .3s}
+.grab{width:36px;height:4px;border-radius:4px;background:var(--p-muted);opacity:.4;margin:8px auto 0}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;color:var(--p-title)}
+.sh b{display:flex;gap:6px;align-items:center;font-size:14px}.sh small{font-size:11px;color:var(--p-muted)}
+.ft{margin:0 10px;padding:9px;border-radius:15px;background:var(--p-card);display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;transition:background-color .3s}
+.ft .pth{width:72px;height:72px;border-radius:11px}
+.ft .pth svg{width:30px;height:30px}
+.ft .k{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--p-badge)}
+.ft b{display:block;color:var(--p-title);font-size:12px;line-height:1.3;margin:2px 0 3px}
+.price{color:var(--p-price);font-weight:700;font-size:13px}
+.buy{display:inline-flex;margin-top:6px;height:24px;align-items:center;padding:0 10px;border-radius:999px;background:var(--p-btn);color:var(--p-btn-ink);font-size:10px;font-weight:800}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+.pc{background:var(--p-card);border-radius:13px;padding:6px;transition:background-color .3s}
+.pc .pth{width:100%;height:86px;border-radius:9px}
+.pc b{display:block;color:var(--p-title);font-size:11px;line-height:1.3;margin:6px 2px 2px;height:28px;overflow:hidden}
+.pc .price{font-size:11px;margin:0 2px}
+.verify{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);flex-wrap:wrap;justify-content:center}
+.tip{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
+
+/* settings: numbered sections, one after another */
+.sec{border-bottom:1px solid var(--line)}
+.sec summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+.sec summary::-webkit-details-marker{display:none}
+.sec summary:hover{background:var(--panel)}
+.sec .no{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--panel);box-shadow:0 0 0 1px var(--line-2) inset;color:var(--muted);flex:none}
+.sec.done .no{background:var(--ok);color:#fff;box-shadow:none}
+.sec summary b{display:block;font-size:14px}
+.sec summary small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sec summary .chev{margin-left:auto;color:var(--faint);transition:transform .2s}
+.sec[open] summary .chev{transform:rotate(180deg)}
+.sec .body{padding:2px 16px 18px 54px;display:flex;flex-direction:column;gap:14px}
+.howto{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+.f{display:flex;flex-direction:column;gap:6px}
+.f > span{font-size:12px;font-weight:600}
+.f small{font-size:11px;color:var(--muted)}
+.in{height:38px;padding:0 12px;border-radius:9px;border:0;box-shadow:0 0 0 1px var(--line-2) inset;background:var(--canvas);font-size:13px;width:100%}
+.in:focus{outline:0;box-shadow:0 0 0 2px var(--accent) inset}
+textarea.in{height:auto;padding:10px 12px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.preset{border:0;border-radius:12px;padding:6px;background:var(--canvas);box-shadow:0 0 0 1px var(--line-2) inset;text-align:left;display:flex;flex-direction:column;gap:6px}
+.preset[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink) inset}
+.preset .sw{height:46px;border-radius:8px;display:flex;align-items:flex-end;gap:4px;padding:6px}
+.preset .sw i{width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.55)}
+.preset span{font-size:12px;font-weight:600;padding:0 2px 2px}
+.colors{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.color{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:9px;box-shadow:0 0 0 1px var(--line) inset;font-size:12px}
+.color input{width:22px;height:22px;border:0;padding:0;background:none;cursor:pointer}
+.prog-pick{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;box-shadow:0 0 0 1px var(--line-2) inset}
+.prog-pick .th{width:44px;height:30px;border-radius:6px;background:linear-gradient(140deg,#24305A,#6B2457);flex:none}
+.prog-pick b{display:block;font-size:13px}.prog-pick small{font-size:11px;color:var(--muted)}
+.warnbox{display:flex;gap:8px;padding:10px 12px;border-radius:10px;background:var(--warn-soft);color:var(--warn);font-size:12px}
+.tagout{padding:9px 12px;border-radius:9px;background:var(--panel);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-2);word-break:break-all}
+.tg{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.tg:last-child{border-bottom:0}
+.sw-t{position:relative;width:38px;height:22px;flex:none}
+.sw-t input{appearance:none;-webkit-appearance:none;margin:0;width:38px;height:22px;border-radius:999px;background:var(--line-2);cursor:pointer;transition:background-color .2s}
+.sw-t input:checked{background:var(--ok)}
+.sw-t input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.sw-t input:checked::after{transform:translateX(16px)}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ck{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;box-shadow:0 0 0 1px var(--line) inset;font-size:12px;cursor:pointer}
+.ck input{accent-color:var(--ink);margin:0}
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.log li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:12px}
+.log .av{width:22px;height:22px;border-radius:50%;background:var(--panel);box-shadow:0 0 0 1px var(--line) inset;display:grid;place-items:center;font-size:9px;font-weight:800}
+.log small{display:block;color:var(--muted)}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(5,6,8,.45);backdrop-filter:blur(2px);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:10px;right:10px;bottom:10px;width:min(760px,calc(100vw - 20px));background:var(--canvas);border-radius:18px;z-index:41;transform:translateX(calc(100% + 20px));visibility:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s;display:flex;flex-direction:column;box-shadow:0 0 0 1px var(--line)}
+.drawer.open{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 0 1px var(--line),-30px 0 80px -30px rgba(0,0,0,.45)}
+.d-h{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.d-h h2{margin:0;font-size:18px;letter-spacing:-.015em}
+.methods{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+.method{border:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px;border-radius:12px;background:var(--canvas);box-shadow:0 0 0 1px var(--line-2) inset;text-align:left}
+.method b{font-size:13px}.method small{font-size:11px;color:var(--muted);line-height:1.35}
+.method .rec{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ok)}
+.method[aria-selected="true"]{box-shadow:0 0 0 2px var(--ink) inset}
+.d-body{flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.d-foot{display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--line);background:var(--panel);border-radius:0 0 18px 18px}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.res{position:relative;border-radius:12px;padding:6px;box-shadow:0 0 0 1px var(--line-2) inset;cursor:pointer;display:block}
+.res:has(input:checked){box-shadow:0 0 0 2px var(--ink) inset}
+.res input{position:absolute;top:12px;right:12px;width:18px;height:18px;accent-color:var(--ink)}
+.res .pth{width:100%;height:100px}
+.res b{display:block;font-size:12px;margin:8px 4px 2px;height:32px;overflow:hidden;line-height:1.3}
+.res .m{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:0 4px 4px}
+.res .added{position:absolute;inset:6px 6px auto;height:100px;border-radius:10px;background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700}
+.drop{border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;color:var(--muted);font-size:12px;background:var(--panel);box-shadow:0 0 0 1.5px var(--line-2) inset;border:0}
+.drop b{color:var(--ink);font-size:13px}
+.manual{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:18px}
+.mcard{background:#101114;border-radius:16px;padding:9px;align-self:start;position:sticky;top:0}
+.mcard .ph{height:140px;border-radius:11px;background:repeating-linear-gradient(135deg,#1F2229 0 10px,#191B21 10px 20px);display:grid;place-items:center;color:#7C828C;font-size:11px}
+.mcard .src{display:inline-block;margin:8px 4px 0;font-size:9px;font-weight:800;letter-spacing:.08em;color:#9AA0AA}
+.mcard b{display:block;color:#fff;font-size:12px;margin:4px 4px}
+.mcard .price{margin:0 4px;color:#FF5C8D}
+.notice{display:flex;gap:10px;padding:10px 12px;border-radius:10px;font-size:12px;line-height:1.5;background:var(--warn-soft);color:var(--warn)}
+.vtable{width:100%;border-collapse:collapse;font-size:12px}
+.vtable th,.vtable td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+.vtable th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.xsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.xsteps li{display:grid;grid-template-columns:26px 1fr;gap:12px}
+.xsteps .n{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--panel);box-shadow:0 0 0 1px var(--line-2) inset}
+.xsteps .n.ok{background:var(--ok);color:#fff;box-shadow:none}
+.xsteps b{font-size:13px}.xsteps p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+
+/* dialogs */
+dialog{border:0;padding:0;border-radius:18px;background:var(--canvas);color:var(--ink);box-shadow:0 0 0 1px var(--line),0 40px 80px -30px rgba(0,0,0,.5);width:min(480px,calc(100vw - 32px))}
+dialog::backdrop{background:rgba(5,6,8,.5);backdrop-filter:blur(3px)}
+.dlg-b{padding:22px 22px 0}
+.dlg-b h3{margin:0 0 6px;font-size:18px;letter-spacing:-.015em}
+.dlg-b p{margin:0 0 14px;color:var(--muted)}
+.dlg-b ul.why{margin:0 0 14px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.dlg-b ul.why li{display:flex;gap:10px;font-size:13px}
+.dlg-b ul.why svg{color:var(--muted)}
+.dlg-b label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+.dlg-f{display:flex;justify-content:flex-end;gap:8px;padding:18px 22px 22px}
+.golive{list-style:none;margin:6px 0 4px;padding:0;display:flex;flex-direction:column;gap:2px}
+.golive li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:14px;color:var(--faint);transition:color .2s,background-color .2s}
+.golive li .st{width:24px;height:24px;border-radius:50%;box-shadow:0 0 0 1.5px var(--line-2) inset;display:grid;place-items:center;flex:none;color:#fff}
+.golive li.run{color:var(--ink);background:var(--panel)}
+.golive li.run .st{box-shadow:0 0 0 2px var(--accent) inset;border-top-color:transparent;animation:spin .8s linear infinite;background:conic-gradient(var(--accent) 0 25%,transparent 0)}
+.golive li.ok{color:var(--ink)}
+.golive li.ok .st{background:var(--ok);box-shadow:none;animation:none}
+.golive li small{margin-left:auto;font-size:11px;color:var(--muted)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.onair{display:none;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--grad);color:#fff;font-weight:700}
+.onair.show{display:flex;animation:pop .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;background:var(--primary);color:var(--on-primary);padding:12px 16px;border-radius:12px;font-size:13px;font-weight:500;z-index:60;transition:all .25s;pointer-events:none;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:1320px){.panes{grid-template-columns:320px minmax(0,1fr)}.pane.settings{grid-column:1/-1;border-left:0;border-top:1px solid var(--line)}.canvas{overflow:visible}.shell{height:auto;min-height:100vh}}
+@media (max-width:900px){.shell{grid-template-columns:1fr;padding:0}.rail{display:none}.canvas{border-radius:0}.panes{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}.demo span,.saved{display:none}.methods{grid-template-columns:1fr 1fr}.manual{grid-template-columns:1fr}}
+@media (max-width:600px){.c-head{flex-wrap:wrap}.c-head .title{flex:1 1 0}.brk{flex-basis:100%;height:0}.c-head .demo{display:none}#offBtn,#submitBtn,#approveBtn{flex:1}.row2,.colors,.checks,.presets{grid-template-columns:1fr 1fr}.sec .body{padding-left:16px}}
+@media (min-width:601px){.brk{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-role="editor">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
+  <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-draft" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-approve" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 6 4 4H6l4-4-1-6Z"/></symbol>
+  <symbol id="i-spot" viewBox="0 0 24 24"><path d="M12 2v3M4.2 5.2l2.1 2.1M2 13h3M19 13h3M17.7 7.3l2.1-2.1"/><path d="M8 17a4 4 0 1 1 8 0v3H8v-3Z"/></symbol>
+  <symbol id="i-off" viewBox="0 0 24 24"><path d="M12 3v9"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8L7 4Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h11L21 7H6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 7h12l1 14H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></symbol>
+  <symbol id="i-shoe" viewBox="0 0 24 24"><path d="M3 16v-5l4-1 3 3 4 1 5 1a2 2 0 0 1 2 2v1H3Z"/><path d="M3 19h18"/></symbol>
+  <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3Z"/></symbol>
+  <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M10 2h4v4l2 3v12H8V9l2-3V2Z"/><path d="M8 13h8"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 3-1v11h8V10l3 1 2-5-5-3a4 4 0 0 1-8 0Z"/></symbol>
+</svg>
+
+<div class="shell">
+  <nav class="rail" aria-label="Main">
+    <a class="mark" href="index.html" aria-label="Shop+ home">S+</a>
+    <a href="index.html" aria-label="On air" title="On air"><svg class="i"><use href="#i-radio"/></svg></a>
+    <a href="#" aria-current="page" aria-label="Catalogs" title="Catalogs"><svg class="i"><use href="#i-grid"/></svg></a>
+    <a href="index.html#drafts" aria-label="Drafts" title="Drafts"><svg class="i"><use href="#i-draft"/></svg></a>
+    <a href="index.html#approvals" aria-label="Approvals" title="Approvals"><svg class="i"><use href="#i-approve"/></svg></a>
+    <div class="bottom">
+      <button class="ibtn" type="button" id="langBtn" aria-label="Switch language">EN</button>
+      <button class="ibtn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i i-sun"><use href="#i-sun"/></svg><svg class="i i-moon"><use href="#i-moon"/></svg></button>
+    </div>
+  </nav>
+
+  <main class="canvas">
+    <header class="c-head">
+      <a class="back" href="index.html" aria-label="Back to On air"><svg class="i"><use href="#i-left"/></svg></a>
+      <div class="title"><small>Seputar iNews · RCTI</small><b>iNews · Non-Primetime · Sept W1 Thu</b></div>
+      <span class="chip live"><span class="d pulse"></span><span data-i18n="live">Live</span></span>
+      <span class="saved"><i></i><span data-i18n="saved">Draft saved</span></span>
+      <span class="spacer"></span>
+      <div class="demo"><span data-i18n="demo">Demo role</span><div class="seg" role="group" aria-label="Demo role"><button type="button" data-role-btn="editor" aria-pressed="true" data-i18n="editor">Editor</button><button type="button" data-role-btn="publisher" aria-pressed="false" data-i18n="publisher">Publisher</button></div></div>
+      <span class="brk"></span>
+      <button class="btn danger" type="button" id="offBtn"><svg class="i" style="width:16px;height:16px"><use href="#i-off"/></svg><span data-i18n="offair">Take off air</span></button>
+      <button class="btn primary" type="button" id="submitBtn" data-for="editor"><span data-i18n="submit">Submit for approval</span></button>
+      <button class="btn primary" type="button" id="approveBtn" data-for="publisher"><span data-i18n="approve">Approve and publish</span></button>
+    </header>
+    <div class="banner ed" data-for="editor"><svg class="i"><use href="#i-info"/></svg><span><b data-i18n="b1">You're editing a live catalog.</b> <span data-i18n="b2">Viewers keep seeing the current version until a publisher approves your changes.</span></span><span class="spacer"></span><span class="chip draft">[count] <span data-i18n="unpub">unpublished changes</span></span></div>
+    <div class="banner pub" data-for="publisher"><svg class="i"><use href="#i-alert"/></svg><span><b>Rina Wulandari</b> <span data-i18n="b3">submitted changes: added products, changed the theme, featured a product.</span></span><span class="spacer"></span><button class="btn sm" type="button" data-i18n="compare">Compare with live</button></div>
+
+    <div class="panes">
+      <!-- products -->
+      <section class="pane" aria-labelledby="ph">
+        <div class="p-h"><h2 id="ph" data-i18n="products">Products</h2><span class="n">[count]</span><span class="spacer"></span><button class="btn sm primary" type="button" data-open-drawer><svg class="i" style="width:14px;height:14px"><use href="#i-plus"/></svg><span data-i18n="add">Add products</span></button></div>
+        <div class="p-tools">
+          <label class="search"><svg class="i" style="width:16px;height:16px;color:var(--muted)"><use href="#i-search"/></svg><input type="search" aria-label="Filter products" data-i18n-ph="filter" placeholder="Filter products"></label>
+          <div class="seg" role="group" aria-label="Order" style="align-self:flex-start"><button type="button" aria-pressed="true" data-i18n="manualOrder">Manual order</button><button type="button" aria-pressed="false" data-i18n="random">Random</button></div>
+        </div>
+        <div class="scroll">
+          <ul class="plist" id="plist">
+            <li class="prow feat" data-name="Converse Lifestyle Wrinkle Men" data-t="t3" data-icon="i-shoe"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t3"><svg class="i"><use href="#i-shoe"/></svg></div>
+              <div style="min-width:0"><b>Converse Lifestyle Wrinkle Men</b><div class="sub"><span>[price]</span><span class="chip live" data-i18n="onScreen">On screen</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="true" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="true" aria-label="Pinned to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+            <li class="prow" data-name="Minyak Ikan Merpati OMEGA BIRD" data-t="t4" data-icon="i-bottle"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t4"><svg class="i"><use href="#i-bottle"/></svg></div>
+              <div style="min-width:0"><b>Minyak Ikan Merpati OMEGA BIRD</b><div class="sub"><span>[price]</span><span class="chip line">Shopee</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="false" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="false" aria-label="Pin to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+            <li class="prow" data-name="Mika headlamp lampu depan" data-t="t2" data-icon="i-lamp"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t2"><svg class="i"><use href="#i-lamp"/></svg></div>
+              <div style="min-width:0"><b>Mika headlamp lampu depan</b><div class="sub"><span>[price]</span><span class="chip sched" data-i18n="priceCh">Price changed</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="false" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="false" aria-label="Pin to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+            <li class="prow" data-name="Nipple drinker ayam petelur A9" data-t="t5" data-icon="i-drop"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t5"><svg class="i"><use href="#i-drop"/></svg></div>
+              <div style="min-width:0"><b>Nipple drinker ayam petelur A9</b><div class="sub"><span>[price]</span><span class="chip live" data-i18n="oos">Out of stock</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="false" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="false" aria-label="Pin to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+            <li class="prow" data-name="[product name]" data-t="t1" data-icon="i-bag"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t1"><svg class="i"><use href="#i-bag"/></svg></div>
+              <div style="min-width:0"><b>[product name]</b><div class="sub"><span>[price]</span><span class="chip warn" data-i18n="manual">Manual</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="false" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="false" aria-label="Pin to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+            <li class="prow" data-name="[product name]" data-t="t6" data-icon="i-shirt"><svg class="i grip"><use href="#i-grip"/></svg><div class="pth t6"><svg class="i"><use href="#i-shirt"/></svg></div>
+              <div style="min-width:0"><b>[product name]</b><div class="sub"><span>[price]</span><span class="chip line">Shopee</span></div></div>
+              <div class="acts"><button class="mini spot" type="button" aria-pressed="false" aria-label="Feature on screen" title="Feature on screen"><svg class="i"><use href="#i-spot"/></svg></button><button class="mini pin" type="button" aria-pressed="false" aria-label="Pin to top"><svg class="i"><use href="#i-pin"/></svg></button></div></li>
+          </ul>
+          <div class="limit"><svg class="i" style="width:14px;height:14px"><use href="#i-info"/></svg><span data-i18n="limit">Viewers see the first [count]. Change the limit in Placement.</span></div>
+        </div>
+      </section>
+
+      <!-- stage -->
+      <section class="pane stage" aria-label="Live preview">
+        <div class="stage-h">
+          <div class="seg" role="group" aria-label="Platform"><button type="button" aria-pressed="true">iOS</button><button type="button" aria-pressed="false">Android</button><button type="button" aria-pressed="false">Web</button><button type="button" aria-pressed="false">MWEB</button></div>
+          <div class="seg" role="group" aria-label="Version"><button type="button" aria-pressed="true" data-i18n="yourDraft">Your draft</button><button type="button" aria-pressed="false" data-i18n="onAirNow">On air now</button></div>
+        </div>
+        <div class="phone" id="phone"><div class="scr">
+          <div class="vid"><div class="vt"><span class="lv"><i></i>LIVE</span><span>RCTI</span></div><div class="vtitle">Seputar iNews</div>
+            <div class="nudge show" id="nudge"><div class="pth t3" id="nThumb"><svg class="i"><use href="#i-shoe"/></svg></div><div style="min-width:0"><small>On screen now</small><b id="nName">Converse Lifestyle Wrinkle Men</b></div><span class="go">View</span></div></div>
+          <div class="sheet"><div class="grab"></div>
+            <div class="sh"><b><svg class="i" style="width:15px;height:15px"><use href="#i-cart"/></svg>Shop</b><small>[count] products</small></div>
+            <div class="ft"><div class="pth t3" id="fThumb"><svg class="i"><use href="#i-shoe"/></svg></div><div><span class="k">Featured</span><b id="fName">Converse Lifestyle Wrinkle Men</b><span class="price">[price]</span><br><span class="buy">Buy on Shopee</span></div></div>
+            <div class="pg">
+              <div class="pc"><div class="pth t4"><svg class="i"><use href="#i-bottle"/></svg></div><b>Minyak Ikan Merpati OMEGA BIRD</b><div class="price">[price]</div></div>
+              <div class="pc"><div class="pth t2"><svg class="i"><use href="#i-lamp"/></svg></div><b>Mika headlamp lampu depan</b><div class="price">[price]</div></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="tip"><svg class="i" style="width:14px;height:14px"><use href="#i-spot"/></svg><span data-i18n="tip">Tap the spotlight on a product to feature it on screen.</span></div>
+        <div class="verify"><span class="chip ok"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg><span data-i18n="confirmed">Confirmed in player</span></span><span>iOS · Android · Web · MWEB · [time]</span></div>
+      </section>
+
+      <!-- settings -->
+      <section class="pane settings" aria-label="Settings">
+        <div class="p-h"><h2 data-i18n="setup">Setup</h2><span class="n">3 / 4</span><span class="spacer"></span></div>
+        <div class="scroll">
+          <details class="sec done" open>
+            <summary><span class="no"><svg class="i" style="width:14px;height:14px"><use href="#i-check"/></svg></span><span style="min-width:0"><b data-i18n="s1">Look</b><small id="lookSum">RCTI+ Night</small></span><svg class="i chev"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <p class="howto" data-i18n="s1h">Pick a theme. The phone updates as you choose. Fine-tune the six colours below if needed.</p>
+              <div class="presets">
+                <button class="preset" type="button" aria-pressed="true" data-preset="night"><div class="sw" style="background:#101114"><i style="background:#FF5C8D"></i><i style="background:#fff"></i></div><span>RCTI+ Night</span></button>
+                <button class="preset" type="button" aria-pressed="false" data-preset="paper"><div class="sw" style="background:#F6F3EC"><i style="background:#C70D57"></i><i style="background:#15130F"></i></div><span>Paper</span></button>
+                <button class="preset" type="button" aria-pressed="false" data-preset="festive"><div class="sw" style="background:#3A0B2A"><i style="background:#FFC94A"></i><i style="background:#fff"></i></div><span>Festive</span></button>
+                <button class="preset" type="button" aria-pressed="false" data-preset="news"><div class="sw" style="background:#0B1A33"><i style="background:#38C6F4"></i><i style="background:#fff"></i></div><span>Newsroom</span></button>
+              </div>
+              <div class="colors">
+                <label class="color"><input type="color" value="#101114" data-var="--p-bg"><span data-i18n="c1">Background</span></label>
+                <label class="color"><input type="color" value="#1B1D22" data-var="--p-card"><span data-i18n="c2">Product card</span></label>
+                <label class="color"><input type="color" value="#FFFFFF" data-var="--p-title"><span data-i18n="c3">Title text</span></label>
+                <label class="color"><input type="color" value="#FF5C8D" data-var="--p-price"><span data-i18n="c4">Price</span></label>
+                <label class="color"><input type="color" value="#E2127A" data-var="--p-badge"><span data-i18n="c5">Discount badge</span></label>
+                <label class="color"><input type="color" value="#FFFFFF" data-var="--p-btn"><span data-i18n="c6">Buy button</span></label>
+              </div>
+            </div>
+          </details>
+          <details class="sec done">
+            <summary><span class="no"><svg class="i" style="width:14px;height:14px"><use href="#i-check"/></svg></span><span style="min-width:0"><b data-i18n="s2">Where it airs</b><small>Seputar iNews · RCTI · [time]</small></span><svg class="i chev"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <p class="howto" data-i18n="s2h">The Shop panel turns on when the program starts and off when it ends.</p>
+              <div class="row2"><label class="f"><span data-i18n="ctype">Content type</span><select class="in"><option>Live TV</option><option>Live event</option><option>Stories</option><option>Short+</option></select></label>
+                <label class="f"><span data-i18n="channel">Channel</span><select class="in"><option>RCTI</option><option>MNCTV</option><option>GTV</option><option>iNews</option></select></label></div>
+              <div class="f"><span data-i18n="program">Program</span><div class="prog-pick"><span class="th"></span><span style="flex:1;min-width:0"><b>Seputar iNews</b><small>[date] · [time]–[time]</small></span><button class="btn sm" type="button" data-i18n="change">Change</button></div></div>
+              <div class="warnbox"><svg class="i" style="width:16px;height:16px"><use href="#i-alert"/></svg><span data-i18n="clash">RCTI · Non-Primetime · Sept W1 Thu also targets this program. Only one can show at a time.</span></div>
+              <div class="row2"><label class="f"><span data-i18n="limitL">Product limit</span><input class="in" type="number" placeholder="[count]"></label><label class="f"><span data-i18n="sort">Activity sort</span><input class="in" type="number" placeholder="[number]"></label></div>
+              <div class="tg"><span data-i18n="single">Single product mode</span><span class="sw-t"><input type="checkbox" aria-label="Single product mode"></span></div>
+            </div>
+          </details>
+          <details class="sec">
+            <summary><span class="no">3</span><span style="min-width:0"><b data-i18n="s3">Tracking labels</b><small data-i18n="s3s">Campaign label is empty</small></span><svg class="i chev"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <p class="howto" data-i18n="s3h">These labels go with every Shopee click, so Shopee's affiliate report can show which platform and program led to a sale.</p>
+              <label class="f"><span data-i18n="tp">Platform</span><small>Tag 1</small><select class="in"><option>RCTI+ App</option><option>RCTI+ Web</option></select></label>
+              <label class="f"><span data-i18n="tpr">Program</span><small data-i18n="tprs">Tag 2 · filled from Where it airs</small><input class="in" value="seputar-inews"></label>
+              <label class="f"><span data-i18n="tc">Campaign (optional)</span><small>Tag 3</small><input class="in" placeholder="[campaign]"></label>
+              <div class="f"><span data-i18n="tout">What Shopee receives</span><div class="tagout">[tag-1] · seputar-inews · [tag-3]</div></div>
+            </div>
+          </details>
+          <details class="sec done">
+            <summary><span class="no"><svg class="i" style="width:14px;height:14px"><use href="#i-check"/></svg></span><span style="min-width:0"><b data-i18n="s4">Viewer options</b><small>iOS · Android · Web · MWEB</small></span><svg class="i chev"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <div><div class="tg"><span data-i18n="o1">Show “Buy” button</span><span class="sw-t"><input type="checkbox" checked aria-label="Show Buy button"></span></div>
+                <div class="tg"><span data-i18n="o2">Allow viewers without login</span><span class="sw-t"><input type="checkbox" aria-label="Allow viewers without login"></span></div></div>
+              <div class="f"><span data-i18n="o3">Open products in</span><div class="seg" role="group" aria-label="Open products in" style="align-self:flex-start"><button type="button" aria-pressed="true" data-i18n="app">RCTI+ app</button><button type="button" aria-pressed="false" data-i18n="browser">Browser</button></div></div>
+              <div class="checks"><label class="ck"><input type="checkbox" checked>iOS</label><label class="ck"><input type="checkbox" checked>Android</label><label class="ck"><input type="checkbox" checked>Web</label><label class="ck"><input type="checkbox" checked>MWEB</label></div>
+            </div>
+          </details>
+          <details class="sec">
+            <summary><span class="no"><svg class="i" style="width:14px;height:14px"><use href="#i-history"/></svg></span><span style="min-width:0"><b data-i18n="s5">History</b><small>Rina Wulandari · [time]</small></span><svg class="i chev"><use href="#i-chev"/></svg></summary>
+            <div class="body">
+              <ul class="log">
+                <li><span class="av">RW</span><div><span data-i18n="h1">Featured “Converse Lifestyle Wrinkle Men”</span><small>Rina Wulandari · [time]</small></div></li>
+                <li><span class="av">D</span><div><span data-i18n="h2">Approved and went live</span><small>Dimas · [time]</small></div></li>
+                <li><span class="av">RW</span><div><span data-i18n="h3">Created from a duplicate</span><small>Rina Wulandari · [time]</small></div></li>
+              </ul>
+              <button class="btn sm" type="button" style="align-self:flex-start" data-i18n="restore">Restore an earlier version</button>
+            </div>
+          </details>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Add products drawer -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-t">
+  <div class="d-h"><h2 id="d-t" data-i18n="add">Add products</h2><span class="spacer"></span><button class="ibtn" type="button" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+  <div class="methods" role="tablist">
+    <button class="method" role="tab" aria-selected="true" data-m="shopee"><span class="rec" data-i18n="rec">Recommended</span><b data-i18n="m1">Search Shopee</b><small data-i18n="m1s">Prices stay in sync</small></button>
+    <button class="method" role="tab" aria-selected="false" data-m="paste"><b data-i18n="m2">Paste links</b><small data-i18n="m2s">Many links or IDs at once</small></button>
+    <button class="method" role="tab" aria-selected="false" data-m="manual"><b data-i18n="m3">Add manually</b><small data-i18n="m3s">Not on Shopee</small></button>
+    <button class="method" role="tab" aria-selected="false" data-m="excel"><b data-i18n="m4">Upload Excel</b><small data-i18n="m4s">From a spreadsheet</small></button>
+  </div>
+  <div class="d-body" data-mp="shopee">
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><label class="search" style="flex:1;min-width:200px;height:40px"><svg class="i" style="width:16px;height:16px;color:var(--muted)"><use href="#i-search"/></svg><input type="search" aria-label="Search Shopee" data-i18n-ph="shopeePh" placeholder="Search Shopee products"></label>
+      <div class="seg" role="group" aria-label="Search by"><button type="button" aria-pressed="true" data-i18n="byName">Name</button><button type="button" aria-pressed="false" data-i18n="byId">Product ID</button><button type="button" aria-pressed="false" data-i18n="byStore">Store</button></div></div>
+    <div class="results">
+      <label class="res"><input type="checkbox" checked aria-label="Select"><div class="pth t6"><svg class="i"><use href="#i-shirt"/></svg></div><b>[product name]</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+      <label class="res"><input type="checkbox" checked aria-label="Select"><div class="pth t1"><svg class="i"><use href="#i-bag"/></svg></div><b>[product name]</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+      <label class="res"><input type="checkbox" aria-label="Select"><div class="pth t5"><svg class="i"><use href="#i-drop"/></svg></div><b>[product name]</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+      <label class="res"><input type="checkbox" disabled aria-label="Already in catalog"><div class="pth t3"><svg class="i"><use href="#i-shoe"/></svg></div><div class="added" data-i18n="already">Already in catalog</div><b>Converse Lifestyle Wrinkle Men</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+      <label class="res"><input type="checkbox" aria-label="Select"><div class="pth t4"><svg class="i"><use href="#i-bottle"/></svg></div><b>[product name]</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+      <label class="res"><input type="checkbox" aria-label="Select"><div class="pth t2"><svg class="i"><use href="#i-lamp"/></svg></div><b>[product name]</b><div class="m"><span>[price]</span><span>★ [rating]</span></div></label>
+    </div>
+  </div>
+  <div class="d-body" data-mp="paste" hidden>
+    <label class="f"><span data-i18n="pasteL">Shopee links or product IDs, one per line</span><textarea class="in mono" rows="6" placeholder="https://shopee.co.id/…&#10;[product-id]"></textarea></label>
+    <table class="vtable"><thead><tr><th>#</th><th data-i18n="thP">Product</th><th data-i18n="thR">Result</th></tr></thead><tbody>
+      <tr><td class="mono">1</td><td>[product name]</td><td><span class="chip ok" data-i18n="ready">Ready</span></td></tr>
+      <tr><td class="mono">2</td><td>[product name]</td><td><span class="chip line" data-i18n="already">Already in catalog</span></td></tr>
+      <tr><td class="mono">3</td><td class="mono">[link]</td><td><span class="chip live" data-i18n="nf">Not found on Shopee</span></td></tr></tbody></table>
+  </div>
+  <div class="d-body" data-mp="manual" hidden>
+    <div class="notice"><svg class="i"><use href="#i-info"/></svg><span data-i18n="mWarn">Manual products don't sync with Shopee. You keep the price and stock up to date, and Shopee's affiliate report won't track them.</span></div>
+    <div class="manual">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <button class="drop" type="button"><svg class="i" style="width:22px;height:22px"><use href="#i-upload"/></svg><b data-i18n="img">Product image</b><span data-i18n="imgS">Drop an image or browse · square works best</span></button>
+        <label class="f"><span data-i18n="pn">Product name</span><input class="in" id="mName" data-i18n-ph="pnPh" placeholder="What viewers will read"></label>
+        <div class="row2"><label class="f"><span data-i18n="pp">Price (Rp)</span><input class="in" id="mPrice" inputmode="numeric" placeholder="[price]"></label><label class="f"><span data-i18n="pw">Price before discount</span><input class="in" inputmode="numeric" data-i18n-ph="opt" placeholder="Optional"></label></div>
+        <label class="f"><span data-i18n="pl">Where “Buy” goes</span><input class="in" type="url" placeholder="https://"><small data-i18n="plS">The page that opens when a viewer taps Buy.</small></label>
+        <div class="row2"><label class="f"><span data-i18n="pc">Category</span><select class="in"><option>[category]</option></select></label><label class="f"><span data-i18n="ps">Stock</span><select class="in"><option data-i18n="inStock">In stock</option><option data-i18n="oos">Out of stock</option></select></label></div>
+      </div>
+      <div><div style="font-size:12px;font-weight:600;margin-bottom:8px" data-i18n="sees">Viewers will see</div><div class="mcard"><div class="ph" data-i18n="img">Product image</div><span class="src">MANUAL</span><b id="mPrevN">[product name]</b><div class="price" id="mPrevP">[price]</div></div></div>
+    </div>
+  </div>
+  <div class="d-body" data-mp="excel" hidden>
+    <ol class="xsteps">
+      <li><span class="n ok"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><div><b data-i18n="x1">Download the template</b><p data-i18n="x1p">Same columns as the manual form: name, price, image link, buy link, category, stock.</p><button class="btn sm" type="button" style="margin-top:8px" data-i18n="x1b">Download template (.xlsx)</button></div></li>
+      <li><span class="n ok"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><div><b data-i18n="x2">Upload the filled file</b><p class="mono">[file-name].xlsx</p></div></li>
+      <li><span class="n">3</span><div><b data-i18n="x3">Check before importing</b><p data-i18n="x3p">Rows with problems are skipped. Fix them here or in the file.</p>
+        <table class="vtable" style="margin-top:8px"><thead><tr><th data-i18n="row">Row</th><th data-i18n="thP">Product</th><th data-i18n="thR">Result</th></tr></thead><tbody>
+          <tr><td class="mono">2</td><td>[product name]</td><td><span class="chip ok" data-i18n="ready">Ready</span></td></tr>
+          <tr><td class="mono">3</td><td>[product name]</td><td><span class="chip live" data-i18n="noPrice">Price is missing</span></td></tr></tbody></table></div></li>
+    </ol>
+  </div>
+  <div class="d-foot"><span style="font-size:12px;color:var(--muted)" id="selNote"><b style="color:var(--ink)">[count]</b> <span data-i18n="selected">selected</span></span><span class="spacer"></span><button class="btn" type="button" data-close data-i18n="cancel">Cancel</button><button class="btn primary" type="button" id="addBtn" data-i18n="addTo">Add to catalog</button></div>
+</aside>
+
+<!-- Take off air -->
+<dialog id="offDlg" aria-labelledby="off-t"><form method="dialog">
+  <div class="dlg-b"><h3 id="off-t" data-i18n="offT">Take this catalog off air?</h3>
+    <p data-i18n="offP">The Shop panel disappears from Seputar iNews for every viewer, right away. Use this when something is wrong on screen.</p>
+    <ul class="why"><li><svg class="i"><use href="#i-off"/></svg><span data-i18n="off1">Status changes to Ended. Products and settings are kept.</span></li>
+      <li><svg class="i"><use href="#i-history"/></svg><span data-i18n="off2">It's recorded in History with your name and reason.</span></li>
+      <li><svg class="i"><use href="#i-play"/></svg><span data-i18n="off3">To bring it back, a publisher approves it again.</span></li></ul>
+    <label><span data-i18n="reason">Reason (shown in History)</span><input class="in" data-i18n-ph="reasonPh" placeholder="e.g. wrong product shown"></label></div>
+  <div class="dlg-f"><button class="btn" value="cancel" data-i18n="cancel">Cancel</button><button class="btn red" value="ok" data-i18n="offNow">Take off air now</button></div>
+</form></dialog>
+
+<!-- Go live sequence -->
+<dialog id="goDlg" aria-labelledby="go-t"><div class="dlg-b"><h3 id="go-t" data-i18n="goT">Publishing to the player</h3><p data-i18n="goP">Shop+ does the old two-CMS steps for you.</p>
+  <ol class="golive" id="golive">
+    <li><span class="st"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span data-i18n="g1">Saving the approved version</span></li>
+    <li><span class="st"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span data-i18n="g2">Updating the player activity</span><small data-i18n="g2s">was a manual URL copy</small></li>
+    <li><span class="st"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span data-i18n="g3">Switching on iOS, Android, Web, MWEB</span></li>
+    <li><span class="st"><svg class="i" style="width:13px;height:13px"><use href="#i-check"/></svg></span><span data-i18n="g4">Checking it shows in the player</span><small data-i18n="g4s">was DevTools + incognito</small></li>
+  </ol>
+  <div class="onair" id="onair"><svg class="i"><use href="#i-check"/></svg><span data-i18n="g5">Live on Seputar iNews</span></div></div>
+  <div class="dlg-f"><button class="btn" type="button" id="goClose" data-i18n="done">Done</button></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var root=document.documentElement,lang='en';
+  var ID={"live":"Tayang","saved":"Draf tersimpan","demo":"Peran demo","editor":"Editor","publisher":"Publisher","offair":"Turunkan","submit":"Ajukan persetujuan","approve":"Setujui dan terbitkan",
+  "b1":"Anda mengedit katalog yang sedang tayang.","b2":"Penonton tetap melihat versi saat ini sampai publisher menyetujui perubahan Anda.","unpub":"perubahan belum terbit",
+  "b3":"mengajukan perubahan: menambah produk, mengganti tema, menampilkan produk unggulan.","compare":"Bandingkan dengan versi tayang","products":"Produk","add":"Tambah produk",
+  "filter":"Saring produk","manualOrder":"Urutan manual","random":"Acak","onScreen":"Sedang tampil","priceCh":"Harga berubah","oos":"Stok habis","manual":"Manual",
+  "limit":"Penonton melihat [count] pertama. Ubah batasnya di Tempat tayang.","yourDraft":"Draf Anda","onAirNow":"Yang tayang","tip":"Ketuk ikon sorot pada produk untuk menampilkannya di layar.",
+  "confirmed":"Terkonfirmasi di player","setup":"Pengaturan","s1":"Tampilan","s1h":"Pilih tema. Ponsel berubah saat Anda memilih. Atur enam warna di bawah jika perlu.",
+  "c1":"Latar","c2":"Kartu produk","c3":"Teks judul","c4":"Harga","c5":"Lencana diskon","c6":"Tombol beli","s2":"Tempat tayang","s2h":"Panel Shop menyala saat program mulai dan mati saat selesai.",
+  "ctype":"Jenis konten","channel":"Kanal","program":"Program","change":"Ganti","clash":"RCTI · Non-Primetime · Sept W1 Thu juga menargetkan program ini. Hanya satu yang bisa tampil.",
+  "limitL":"Batas produk","sort":"Urutan aktivitas","single":"Mode satu produk","s3":"Label pelacakan","s3s":"Label kampanye masih kosong",
+  "s3h":"Label ini ikut di setiap klik ke Shopee, sehingga laporan afiliasi Shopee bisa menunjukkan platform dan program asal penjualan.","tp":"Platform","tpr":"Program","tprs":"Tag 2 · diisi dari Tempat tayang",
+  "tc":"Kampanye (opsional)","tout":"Yang diterima Shopee","s4":"Opsi penonton","o1":"Tampilkan tombol “Beli”","o2":"Izinkan penonton tanpa login","o3":"Buka produk di","app":"Aplikasi RCTI+","browser":"Browser",
+  "s5":"Riwayat","h1":"Menampilkan “Converse Lifestyle Wrinkle Men”","h2":"Menyetujui dan menayangkan","h3":"Dibuat dari duplikat","restore":"Pulihkan versi sebelumnya",
+  "rec":"Disarankan","m1":"Cari di Shopee","m1s":"Harga selalu sinkron","m2":"Tempel tautan","m2s":"Banyak tautan atau ID sekaligus","m3":"Tambah manual","m3s":"Tidak ada di Shopee","m4":"Unggah Excel","m4s":"Dari spreadsheet",
+  "shopeePh":"Cari produk Shopee","byName":"Nama","byId":"ID produk","byStore":"Toko","already":"Sudah ada di katalog","pasteL":"Tautan atau ID produk Shopee, satu per baris","thP":"Produk","thR":"Hasil",
+  "ready":"Siap","nf":"Tidak ditemukan di Shopee","mWarn":"Produk manual tidak sinkron dengan Shopee. Harga dan stok Anda yang memperbarui, dan laporan afiliasi Shopee tidak melacaknya.",
+  "img":"Gambar produk","imgS":"Tarik gambar atau pilih file · persegi paling bagus","pn":"Nama produk","pnPh":"Yang dibaca penonton","pp":"Harga (Rp)","pw":"Harga sebelum diskon","opt":"Opsional",
+  "pl":"Tujuan tombol “Beli”","plS":"Halaman yang terbuka saat penonton mengetuk Beli.","pc":"Kategori","ps":"Stok","inStock":"Tersedia","sees":"Yang dilihat penonton",
+  "x1":"Unduh template","x1p":"Kolomnya sama dengan form manual: nama, harga, tautan gambar, tautan beli, kategori, stok.","x1b":"Unduh template (.xlsx)","x2":"Unggah file yang sudah diisi",
+  "x3":"Cek sebelum impor","x3p":"Baris bermasalah dilewati. Perbaiki di sini atau di file.","row":"Baris","noPrice":"Harga kosong","selected":"dipilih","cancel":"Batal","addTo":"Tambahkan ke katalog",
+  "offT":"Turunkan katalog ini dari siaran?","offP":"Panel Shop hilang dari Seputar iNews untuk semua penonton, saat ini juga. Gunakan saat ada yang salah di layar.",
+  "off1":"Status menjadi Selesai. Produk dan pengaturan tetap tersimpan.","off2":"Dicatat di Riwayat dengan nama dan alasan Anda.","off3":"Untuk menayangkan lagi, publisher perlu menyetujui ulang.",
+  "reason":"Alasan (tampil di Riwayat)","reasonPh":"mis. produk yang tampil salah","offNow":"Turunkan sekarang","goT":"Menerbitkan ke player","goP":"Shop+ mengerjakan langkah dua CMS yang lama untuk Anda.",
+  "g1":"Menyimpan versi yang disetujui","g2":"Memperbarui aktivitas player","g2s":"dulu salin URL manual","g3":"Menyalakan iOS, Android, Web, MWEB","g4":"Memastikan tampil di player","g4s":"dulu DevTools + incognito","g5":"Tayang di Seputar iNews","done":"Selesai"};
+  var nodes=document.querySelectorAll('[data-i18n]');nodes.forEach(function(n){n.dataset.en=n.textContent});
+  var phs=document.querySelectorAll('[data-i18n-ph]');phs.forEach(function(n){n.dataset.enPh=n.placeholder});
+  var langBtn=document.getElementById('langBtn');
+  function setLang(l){lang=l;root.lang=l;
+    nodes.forEach(function(n){n.textContent=l==='id'&&ID[n.dataset.i18n]?ID[n.dataset.i18n]:n.dataset.en});
+    phs.forEach(function(n){n.placeholder=l==='id'&&ID[n.dataset.i18nPh]?ID[n.dataset.i18nPh]:n.dataset.enPh});
+    langBtn.textContent=l.toUpperCase();try{localStorage.setItem('sp-lang',l)}catch(e){}}
+  langBtn.addEventListener('click',function(){setLang(lang==='en'?'id':'en')});
+  setLang(root.lang==='id'?'id':'en');
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.addEventListener('click',function(){
+    var v=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',v);try{localStorage.setItem('sp-theme',v)}catch(e){}})});
+  document.querySelectorAll('.seg').forEach(function(s){if(s.querySelector('[data-role-btn]'))return;s.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){s.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))})})})});
+  document.querySelectorAll('[data-role-btn]').forEach(function(b){b.addEventListener('click',function(){document.body.dataset.role=b.dataset.roleBtn;
+    document.querySelectorAll('[data-role-btn]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))})})});
+
+  var toast=document.getElementById('toast'),tt;
+  function say(en,id){toast.textContent=lang==='id'?id:en;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show')},4000)}
+
+  // feature on screen (spotlight)
+  var nudge=document.getElementById('nudge');
+  function setThumb(el,t,icon){el.className='pth '+t;el.innerHTML='<svg class="i"><use href="#'+icon+'"/></svg>'}
+  document.querySelectorAll('.mini.spot').forEach(function(b){b.addEventListener('click',function(){
+    var row=b.closest('.prow');
+    document.querySelectorAll('.prow').forEach(function(r){r.classList.toggle('feat',r===row);r.querySelector('.spot').setAttribute('aria-pressed',String(r===row))});
+    nudge.classList.remove('show');
+    setTimeout(function(){document.getElementById('nName').textContent=row.dataset.name;document.getElementById('fName').textContent=row.dataset.name;
+      setThumb(document.getElementById('nThumb'),row.dataset.t,row.dataset.icon);setThumb(document.getElementById('fThumb'),row.dataset.t,row.dataset.icon);nudge.classList.add('show')},250);
+    say('Featured in your draft. It shows on screen after approval.','Ditampilkan di draf Anda. Muncul di layar setelah disetujui.')})});
+  document.querySelectorAll('.mini.pin').forEach(function(b){b.addEventListener('click',function(){b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'))})});
+
+  // presets
+  var phone=document.getElementById('phone');
+  var P={night:{"--p-bg":"#101114","--p-card":"#1B1D22","--p-title":"#FFFFFF","--p-price":"#FF5C8D","--p-badge":"#E2127A","--p-btn":"#FFFFFF","--p-btn-ink":"#101114","--p-muted":"#9AA0AA"},
+    paper:{"--p-bg":"#F6F3EC","--p-card":"#FFFFFF","--p-title":"#15130F","--p-price":"#C70D57","--p-badge":"#C70D57","--p-btn":"#15130F","--p-btn-ink":"#FFFFFF","--p-muted":"#6B655B"},
+    festive:{"--p-bg":"#3A0B2A","--p-card":"#57123F","--p-title":"#FFFFFF","--p-price":"#FFC94A","--p-badge":"#FF7A1A","--p-btn":"#FFC94A","--p-btn-ink":"#3A0B2A","--p-muted":"#D9A9C6"},
+    news:{"--p-bg":"#0B1A33","--p-card":"#13284B","--p-title":"#FFFFFF","--p-price":"#38C6F4","--p-badge":"#E2127A","--p-btn":"#38C6F4","--p-btn-ink":"#0B1A33","--p-muted":"#93A7C6"}};
+  var cis=document.querySelectorAll('[data-var]');
+  document.querySelectorAll('[data-preset]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-preset]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+    var p=P[b.dataset.preset];Object.keys(p).forEach(function(k){phone.style.setProperty(k,p[k])});cis.forEach(function(i){if(p[i.dataset.var])i.value=p[i.dataset.var]});
+    document.getElementById('lookSum').textContent=b.querySelector('span').textContent})});
+  cis.forEach(function(i){i.addEventListener('input',function(){phone.style.setProperty(i.dataset.var,i.value)})});
+
+  // drawer
+  var drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim'),last;
+  function openD(){last=document.activeElement;drawer.classList.add('open');scrim.classList.add('open');setTimeout(function(){drawer.querySelector('.method[aria-selected="true"]').focus()},60)}
+  function closeD(){drawer.classList.remove('open');scrim.classList.remove('open');if(last)last.focus()}
+  document.querySelectorAll('[data-open-drawer]').forEach(function(b){b.addEventListener('click',openD)});
+  document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeD)});
+  scrim.addEventListener('click',closeD);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&drawer.classList.contains('open'))closeD()});
+  document.querySelectorAll('[data-m]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-m]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
+    document.querySelectorAll('[data-mp]').forEach(function(p){p.hidden=p.dataset.mp!==b.dataset.m});
+    document.getElementById('selNote').style.visibility=(b.dataset.m==='shopee'||b.dataset.m==='paste')?'visible':'hidden'})});
+  document.getElementById('addBtn').addEventListener('click',function(){closeD();say('Added to your draft.','Ditambahkan ke draf Anda.')});
+  var mN=document.getElementById('mName'),mP=document.getElementById('mPrice');
+  mN.addEventListener('input',function(){document.getElementById('mPrevN').textContent=mN.value||'[product name]'});
+  mP.addEventListener('input',function(){document.getElementById('mPrevP').textContent=mP.value?'Rp '+mP.value:'[price]'});
+  if(location.hash.indexOf('#add')===0){var m=location.hash.split('-')[1];if(m){var mb=document.querySelector('[data-m="'+m+'"]');if(mb)mb.click()}openD()}
+
+  // take off air
+  var off=document.getElementById('offDlg');
+  document.getElementById('offBtn').addEventListener('click',function(){off.showModal()});
+  off.addEventListener('close',function(){if(off.returnValue==='ok')say('Taken off air. Viewers no longer see the Shop panel.','Diturunkan. Penonton tidak lagi melihat panel Shop.')});
+
+  // submit / approve
+  document.getElementById('submitBtn').addEventListener('click',function(){say('Sent to publishers. You’ll be notified when it’s approved.','Dikirim ke publisher. Anda akan diberi tahu saat disetujui.')});
+  var go=document.getElementById('goDlg'),steps=document.querySelectorAll('#golive li'),onair=document.getElementById('onair');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('approveBtn').addEventListener('click',function(){
+    steps.forEach(function(s){s.className=''});onair.classList.remove('show');go.showModal();
+    var i=0;(function next(){if(i>0)steps[i-1].className='ok';if(i===steps.length){onair.classList.add('show');return}steps[i].className='run';i++;setTimeout(next,reduce?50:750)})()});
+  document.getElementById('goClose').addEventListener('click',function(){go.close()});
+  if(location.hash==='#golive'){document.querySelector('[data-role-btn="publisher"]').click();document.getElementById('approveBtn').click()}
+})();
+</script>
+</body>
+</html>

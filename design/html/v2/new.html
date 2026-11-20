@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop+ · New catalog</title>
+<link rel="icon" type="image/svg+xml" href="../assets/RCTI%2B_Icon.svg">
+<script>
+(function(){var t,l;try{t=localStorage.getItem('sp-theme');l=localStorage.getItem('sp-lang')}catch(e){}
+var q=new URLSearchParams(location.search).get('theme');if(q==='light'||q==='dark')t=q;
+if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t);document.documentElement.lang=l==='id'?'id':'en';})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="light"]{
+  --bg:#F5F3EE;--surface:#FFFFFF;--surface-2:#FAF8F4;--sunken:#EFECE5;--line:#E6E1D7;--line-strong:#D3CCBE;
+  --ink:#15130F;--ink-2:#3D3A34;--muted:#6B655B;--primary:#15130F;--on-primary:#FFFFFF;--accent:#0B63C4;--accent-soft:#E4EFFB;
+  --live:#C70D57;--live-soft:#FCE6EF;--warn:#8F5400;--warn-soft:#FFF0D2;--draft:#57524A;--draft-soft:#ECE8E0;--ok:#1C7347;--ok-soft:#E0F3E8;
+  --shadow:0 1px 2px rgba(21,19,15,.05),0 10px 30px -12px rgba(21,19,15,.12);--brand-a:#0FA5E0;--brand-b:#E2127A;color-scheme:light;
+}
+[data-theme="dark"]{
+  --bg:#090B0E;--surface:#111419;--surface-2:#0D1014;--sunken:#07090B;--line:#222731;--line-strong:#303643;
+  --ink:#EEF0F3;--ink-2:#C6CBD3;--muted:#8D95A2;--primary:#EEF0F3;--on-primary:#0A0C0F;--accent:#5AB6FF;--accent-soft:rgba(90,182,255,.12);
+  --live:#FF4A8A;--live-soft:rgba(255,74,138,.14);--warn:#F6BC52;--warn-soft:rgba(246,188,82,.12);--draft:#B3B9C3;--draft-soft:rgba(179,185,195,.10);--ok:#52D69C;--ok-soft:rgba(82,214,156,.12);
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset,0 12px 32px -14px rgba(0,0,0,.7);color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:Geist,system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:-.01em}
+svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+[hidden]{display:none!important}
+.spacer{flex:1}
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1240px;margin:0 auto;height:60px;padding:0 32px;display:flex;align-items:center;gap:14px}
+.mark{width:30px;height:30px;border-radius:9px;background:conic-gradient(from 210deg,var(--brand-a),#5B5BF0,var(--brand-b),var(--brand-a));display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px}
+.crumb{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}.crumb b{color:var(--ink)}
+.seg{display:flex;padding:3px;border-radius:10px;background:var(--sunken);border:1px solid var(--line)}
+.seg button{height:30px;min-width:36px;padding:0 10px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:12px;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.icon-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
+[data-theme="dark"] .i-moon,[data-theme="light"] .i-sun{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;white-space:nowrap;transition:transform .15s,border-color .15s,opacity .15s}
+.btn:hover{border-color:var(--line-strong)}
+.btn.primary{background:var(--primary);color:var(--on-primary);border-color:transparent;box-shadow:var(--shadow)}
+.btn.primary:hover{transform:translateY(-1px)}
+.btn.primary[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.saved{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.saved i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.saved.saving i{background:var(--warn)}
+
+/* grounded sheet */
+.wrap{max-width:1240px;margin:0 auto;padding:28px 32px 40px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.sheet-h{display:flex;align-items:flex-end;gap:16px;padding:28px 32px 24px;border-bottom:1px solid var(--line)}
+.sheet-h h1{margin:0;font-size:46px;line-height:1}
+.sheet-h p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px}
+.flow{padding:28px 32px;border-right:1px solid var(--line)}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr);gap:20px;position:relative;padding-bottom:32px}
+.step::before{content:"";position:absolute;left:21px;top:48px;bottom:8px;width:2px;background:var(--line)}
+.step:last-child{padding-bottom:0}.step:last-child::before{display:none}
+.step.done::before{background:var(--ok)}
+.num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:16px;border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);position:relative;z-index:1;transition:all .2s}
+.step.active .num{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.step.done .num{background:var(--ok);color:#fff;border-color:transparent}
+.s-h{display:flex;align-items:center;gap:10px;min-height:44px}
+.s-h h2{margin:0;font-size:24px;line-height:1.1}
+.req{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:3px 8px;border-radius:999px;background:var(--sunken)}
+.howto{display:flex;gap:10px;margin:10px 0 16px;padding:12px 14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-size:14px;color:var(--ink-2);line-height:1.55}
+.howto svg{color:var(--accent);margin-top:2px}
+.fields{display:flex;flex-direction:column;gap:14px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f > span{font-size:13px;font-weight:600}
+.in{height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-size:15px;width:100%}
+.in:focus{outline:2px solid var(--accent);outline-offset:-1px;background:var(--surface)}
+.in.big{height:58px;font-size:20px;font-weight:600}
+.sugg{display:flex;flex-wrap:wrap;gap:6px}
+.sugg button{height:32px;padding:0 12px;border-radius:999px;border:1px dashed var(--line-strong);background:transparent;font-size:13px;color:var(--ink-2)}
+.sugg button:hover{border-style:solid;background:var(--surface-2)}
+.inline{display:flex;gap:8px}.inline .in{flex:1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{position:relative;display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.opt input{position:absolute;opacity:0}
+.opt .t{display:flex;align-items:center;gap:10px}
+.opt b{font-size:16px}.opt p{margin:0;font-size:13px;color:var(--muted)}
+.opt .radio{margin-left:auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-strong)}
+.opt:has(input:checked) .radio{border:6px solid var(--ink)}
+.gets{list-style:none;margin:0;padding:12px 0 0;border-top:1px dashed var(--line-strong);display:flex;flex-direction:column;gap:6px;font-size:13px}
+.gets li{display:flex;gap:8px;align-items:center}.gets .y{color:var(--ok)}.gets .n{color:var(--muted)}.gets li.no{color:var(--muted)}
+.slots{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.slot{display:grid;grid-template-columns:20px 84px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);cursor:pointer}
+.slot:last-child{border-bottom:0}.slot:hover{background:var(--surface-2)}
+.slot:has(input:checked){background:var(--accent-soft)}
+.slot input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.slot .tm{font-family:"Geist Mono",monospace;font-size:13px;color:var(--muted)}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.chip.draft{background:var(--draft-soft);color:var(--draft)}.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.later{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+.later input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.next{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.next div{padding:14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.next b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+
+.side{padding:28px 24px;display:flex;flex-direction:column;gap:16px;background:var(--surface-2);border-radius:0 24px 0 0}
+.side-in{position:sticky;top:88px;display:flex;flex-direction:column;gap:16px}
+.pv{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.pv-art{height:120px;background:repeating-linear-gradient(135deg,var(--sunken) 0 10px,var(--surface-2) 10px 20px);display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center;padding:0 20px}
+.pv-b{padding:14px 16px}
+.pv-b b{display:block;font-size:16px;word-break:break-word}
+.pv dl{margin:10px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:13px}
+.pv dt{color:var(--muted)}.pv dd{margin:0;text-align:right}
+.check{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:8px}
+.check h3{margin:0;padding:8px 10px 4px;font-size:13px}
+.check a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;font-size:14px}
+.check a:hover{background:var(--surface-2)}
+.check .ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;color:#fff;flex:none}
+.check a.done .ck{background:var(--ok);border-color:transparent}
+.check a.done span{color:var(--muted)}
+.check small{margin-left:auto;font-size:11px;color:var(--muted)}
+.note{display:flex;gap:10px;padding:12px 14px;border-radius:14px;background:var(--ok-soft);color:var(--ok);font-size:13px}
+
+.bar{position:sticky;bottom:0;display:flex;align-items:center;gap:12px;padding:16px 32px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:0 0 24px 24px}
+.prog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.prog .track{width:140px;height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.prog .fill{height:100%;background:var(--ok);transition:width .3s}
+
+@media (max-width:1060px){.grid{grid-template-columns:1fr}.flow{border-right:0}.side{border-radius:0;border-top:1px solid var(--line)}.side-in{position:static}}
+@media (max-width:700px){.wrap{padding:0}.sheet{border-radius:0;border-left:0;border-right:0}.bar{border-radius:0;padding:12px 16px}.sheet-h,.flow{padding-left:16px;padding-right:16px}.sheet-h h1{font-size:36px}.top-in{padding:0 16px}
+  .step{grid-template-columns:1fr;gap:8px}.step::before{display:none}.num{width:32px;height:32px;font-size:13px}.opts,.row2,.next{grid-template-columns:1fr}.prog .track,.crumb span{display:none}.slot{grid-template-columns:20px 64px minmax(0,1fr)}.slot .chip{display:none}}
+@media (max-width:700px){.bar{flex-wrap:wrap;row-gap:10px}.bar .prog{flex-basis:100%}.bar .btn{flex:1}.top .saved,.crumb a,.crumb > span{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6v18h12V7l-4-4Z"/><path d="M14 3v4h4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="index.html" aria-label="Shop+ home">S+</a>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="index.html#drafts" data-i18n="drafts">Drafts</a><span>/</span><b data-i18n="title">New catalog</b></nav>
+    <div class="spacer"></div>
+    <span class="saved" id="saved" aria-live="polite"><i></i><span id="savedTxt" data-i18n="savedNow">Saved just now</span></span>
+    <div class="seg" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="id" aria-pressed="false">ID</button></div>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch light or dark theme"><svg class="i i-sun"><use href="#i-sun"/></svg><svg class="i i-moon"><use href="#i-moon"/></svg></button>
+    <a class="icon-btn" href="index.html#drafts" aria-label="Save and close"><svg class="i"><use href="#i-x"/></svg></a>
+  </div>
+</header>
+
+<div class="wrap">
+  <main class="sheet">
+    <div class="sheet-h"><div><h1 class="serif" data-i18n="h1">New catalog</h1><p data-i18n="lead">Four short steps. Each one explains what it's for. Your progress saves as you type.</p></div></div>
+    <div class="grid">
+      <div class="flow">
+        <section class="step active" data-step="name" id="s-name"><span class="num">1</span><div>
+          <div class="s-h"><h2 class="serif" data-i18n="s1">Name the catalog</h2><span class="req" data-i18n="required">Required</span></div>
+          <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s1h">Use the team pattern so anyone can find it later: Channel · Slot · Week · Day. Tap a suggestion to start from it, then fill in the week and day.</span></div>
+          <div class="fields"><label class="f"><span data-i18n="s1f">Catalog name</span><input class="in big" id="name" autocomplete="off" data-i18n-ph="s1ph" placeholder="e.g. GTV · Primetime · Week 2 · Friday"></label>
+            <div class="sugg"><button type="button">RCTI · Non-Primetime · [week] · [day]</button><button type="button">GTV · Primetime · [week] · [day]</button><button type="button">MNCTV · Non-Primetime · [week] · [day]</button><button type="button">iNews · Non-Primetime · [week] · [day]</button></div></div>
+        </div></section>
+
+        <section class="step" data-step="brand" id="s-brand"><span class="num">2</span><div>
+          <div class="s-h"><h2 class="serif" data-i18n="s2">Choose the brand</h2><span class="req" data-i18n="required">Required</span></div>
+          <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s2h">A brand groups catalogs in lists and reports, for example by sponsor or partner. It doesn't change which products show or their prices.</span></div>
+          <div class="fields"><div class="inline"><select class="in" id="brand" aria-label="Brand"><option value="" data-i18n="pick">Pick a brand</option><option>Shopee Affiliate</option><option>Shop+ Affiliate</option><option>Uniqlo</option></select>
+            <button class="btn" type="button" id="newBrandBtn"><svg class="i"><use href="#i-plus"/></svg><span data-i18n="newBrand">New brand</span></button></div>
+            <div class="inline" id="newBrandRow" hidden><input class="in" id="newBrandIn" data-i18n-ph="brandPh" placeholder="Brand name"><button class="btn primary" type="button" id="addBrand" data-i18n="add">Add</button></div></div>
+        </div></section>
+
+        <section class="step" data-step="start" id="s-start"><span class="num">3</span><div>
+          <div class="s-h"><h2 class="serif" data-i18n="s3">Pick a starting point</h2><span class="req" data-i18n="required">Required</span></div>
+          <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s3h">Duplicate when the show sells products similar to an earlier catalog. You keep what works and change only what's new. Start blank for a new show or a new partner.</span></div>
+          <div class="fields">
+            <div class="opts" role="radiogroup" aria-label="Starting point">
+              <label class="opt"><input type="radio" name="start" value="dup"><span class="t"><svg class="i"><use href="#i-copy"/></svg><b data-i18n="dup">Duplicate a catalog</b><span class="radio"></span></span><p data-i18n="dupP">Fastest for weekly shows.</p>
+                <ul class="gets"><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g1">Products and their order</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g2">Theme and colours</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="g3">Tracking labels</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="g4">Where it airs (you pick the new show)</span></li></ul></label>
+              <label class="opt"><input type="radio" name="start" value="blank"><span class="t"><svg class="i"><use href="#i-file"/></svg><b data-i18n="blank">Start blank</b><span class="radio"></span></span><p data-i18n="blankP">For a new show or partner.</p>
+                <ul class="gets"><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b1">No products yet</span></li><li><svg class="i y" style="width:16px;height:16px"><use href="#i-check"/></svg><span data-i18n="b2">Default theme (RCTI+ Night)</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b3">Empty tracking labels</span></li><li class="no"><svg class="i n" style="width:16px;height:16px"><use href="#i-x"/></svg><span data-i18n="b4">No placement</span></li></ul></label>
+            </div>
+            <label class="f" id="dupPick" hidden><span data-i18n="which">Which catalog do you want to copy?</span><select class="in"><option>GTV · Non-Primetime · Sept W1 Thu</option><option>iNews · Non-Primetime · Sept W1 Thu</option><option>MNCTV · Non-Primetime · Sept W1 Thu</option><option>Fashion for RCTI</option></select></label>
+          </div>
+        </div></section>
+
+        <section class="step" data-step="air" id="s-air"><span class="num">4</span><div>
+          <div class="s-h"><h2 class="serif" data-i18n="s4">Choose where it airs</h2><span class="req" data-i18n="optional">Optional now</span></div>
+          <div class="howto"><svg class="i"><use href="#i-info"/></svg><span data-i18n="s4h">Pick the program from the channel schedule. The Shop panel turns on when the program starts and off when it ends. Not sure yet? Tick “Decide later” and it stays a draft.</span></div>
+          <div class="fields">
+            <div class="row2"><label class="f"><span data-i18n="ctype">Content type</span><select class="in"><option>Live TV</option><option>Live event</option><option>Stories</option><option>Short+</option></select></label>
+              <label class="f"><span data-i18n="channel">Channel</span><select class="in" id="chan"><option>GTV</option><option>RCTI</option><option>MNCTV</option><option>iNews</option></select></label></div>
+            <div class="f"><span data-i18n="program">Program</span><div class="slots" role="radiogroup" aria-label="Program">
+              <label class="slot"><input type="radio" name="prog" value="Pada Zaman Dahulu"><span class="tm">[time]</span><b>Pada Zaman Dahulu</b><span></span></label>
+              <label class="slot"><input type="radio" name="prog" value="[program]"><span class="tm">[time]</span><b>[program]</b><span class="chip warn" data-i18n="taken">Has a catalog</span></label>
+              <label class="slot"><input type="radio" name="prog" value="[program] "><span class="tm">[time]</span><b>[program]</b><span></span></label></div></div>
+            <label class="later"><input type="checkbox" id="later"><span data-i18n="later">Decide later</span></label>
+          </div>
+          <div class="next"><div><b data-i18n="n1">Next: the builder</b><span data-i18n="n1b">Add products (Shopee, links, manual or Excel), pick the look, label tracking.</span></div><div><b data-i18n="n2">Then: approval</b><span data-i18n="n2b">Nothing reaches viewers until a publisher approves it.</span></div></div>
+        </div></section>
+      </div>
+
+      <aside class="side" aria-label="Summary"><div class="side-in">
+        <div class="pv"><div class="pv-art" data-i18n="pvArt">Products show here after you add them</div>
+          <div class="pv-b"><b id="pvName" data-i18n="untitled">Untitled catalog</b>
+            <dl><dt data-i18n="status">Status</dt><dd><span class="chip draft" data-i18n="draft">Draft</span></dd><dt data-i18n="brandL">Brand</dt><dd id="pvBrand">—</dd><dt data-i18n="from">Starts from</dt><dd id="pvStart">—</dd><dt data-i18n="airs">Airs</dt><dd id="pvAir">—</dd></dl></div></div>
+        <nav class="check" aria-label="Checklist"><h3 data-i18n="checklist">Checklist</h3>
+          <a href="#s-name" data-ck="name"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c1">Name</span></a>
+          <a href="#s-brand" data-ck="brand"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="brandL">Brand</span></a>
+          <a href="#s-start" data-ck="start"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c3">Starting point</span></a>
+          <a href="#s-air" data-ck="air"><span class="ck"><svg class="i" style="width:12px;height:12px"><use href="#i-check"/></svg></span><span data-i18n="c4">Where it airs</span><small data-i18n="optShort">optional</small></a></nav>
+        <div class="note"><svg class="i"><use href="#i-check"/></svg><span data-i18n="note">Saved as you type. If you stop now, find it under Drafts on the On air page.</span></div>
+      </div></aside>
+    </div>
+    <div class="bar">
+      <div class="prog"><div class="track"><div class="fill" id="fill" style="width:0"></div></div><span id="progTxt">0 / 3</span><span data-i18n="reqDone">required steps done</span></div>
+      <span class="spacer"></span>
+      <a class="btn" href="index.html#drafts" data-i18n="saveDraft">Save as draft</a>
+      <a class="btn primary" href="builder.html" id="create" aria-disabled="true"><span data-i18n="create">Create and open builder</span><svg class="i"><use href="#i-arrow"/></svg></a>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement,lang='en';
+  var ID={"drafts":"Draf","title":"Katalog baru","savedNow":"Tersimpan barusan","h1":"Katalog baru","lead":"Empat langkah singkat. Setiap langkah menjelaskan fungsinya. Progres tersimpan saat Anda mengetik.",
+  "s1":"Beri nama katalog","required":"Wajib","s1h":"Pakai pola tim agar mudah dicari: Kanal · Slot · Minggu · Hari. Ketuk saran untuk memulai, lalu isi minggu dan harinya.","s1f":"Nama katalog","s1ph":"mis. GTV · Primetime · Minggu 2 · Jumat",
+  "s2":"Pilih brand","s2h":"Brand mengelompokkan katalog di daftar dan laporan, misalnya per sponsor atau mitra. Brand tidak mengubah produk yang tampil atau harganya.","pick":"Pilih brand","newBrand":"Brand baru","brandPh":"Nama brand","add":"Tambah",
+  "s3":"Pilih titik awal","s3h":"Duplikat jika acara menjual produk yang mirip dengan katalog sebelumnya. Yang sudah bagus tetap, Anda cukup mengubah yang baru. Mulai kosong untuk acara atau mitra baru.",
+  "dup":"Duplikat katalog","dupP":"Paling cepat untuk acara mingguan.","g1":"Produk dan urutannya","g2":"Tema dan warna","g3":"Label pelacakan","g4":"Tempat tayang (Anda pilih acara baru)",
+  "blank":"Mulai kosong","blankP":"Untuk acara atau mitra baru.","b1":"Belum ada produk","b2":"Tema bawaan (RCTI+ Night)","b3":"Label pelacakan kosong","b4":"Belum ada penempatan","which":"Katalog mana yang ingin disalin?",
+  "s4":"Pilih tempat tayang","optional":"Opsional","s4h":"Pilih program dari jadwal kanal. Panel Shop menyala saat program mulai dan mati saat selesai. Belum yakin? Centang “Putuskan nanti” dan katalog tetap draf.",
+  "ctype":"Jenis konten","channel":"Kanal","program":"Program","taken":"Sudah ada katalog","later":"Putuskan nanti","n1":"Berikutnya: builder","n1b":"Tambah produk (Shopee, tautan, manual, atau Excel), pilih tampilan, beri label pelacakan.","n2":"Lalu: persetujuan","n2b":"Tidak ada yang tampil ke penonton sebelum publisher menyetujui.",
+  "pvArt":"Produk tampil di sini setelah ditambahkan","untitled":"Katalog tanpa nama","status":"Status","draft":"Draf","brandL":"Brand","from":"Mulai dari","airs":"Tayang","checklist":"Daftar periksa","c1":"Nama","c3":"Titik awal","c4":"Tempat tayang","optShort":"opsional",
+  "note":"Tersimpan otomatis. Jika berhenti sekarang, temukan di Draf pada halaman Tayang.","reqDone":"langkah wajib selesai","saveDraft":"Simpan sebagai draf","create":"Buat dan buka builder"};
+  var nodes=document.querySelectorAll('[data-i18n]');nodes.forEach(function(n){n.dataset.en=n.textContent});
+  var phs=document.querySelectorAll('[data-i18n-ph]');phs.forEach(function(n){n.dataset.enPh=n.placeholder});
+  function T(k,en){return lang==='id'&&ID[k]?ID[k]:en}
+  var nameIn=document.getElementById('name'),brand=document.getElementById('brand');
+  function setLang(l){lang=l;root.lang=l;
+    nodes.forEach(function(n){if(n.id==='pvName'&&nameIn.value)return;n.textContent=T(n.dataset.i18n,n.dataset.en)});
+    phs.forEach(function(n){n.placeholder=T(n.dataset.i18nPh,n.dataset.enPh)});
+    document.querySelectorAll('[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
+    try{localStorage.setItem('sp-lang',l)}catch(e){}update()}
+  document.querySelectorAll('[data-lang]').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.addEventListener('click',function(){
+    var v=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',v);try{localStorage.setItem('sp-theme',v)}catch(e){}})});
+  var steps=document.querySelectorAll('.step');
+  steps.forEach(function(s){s.addEventListener('focusin',function(){steps.forEach(function(x){x.classList.toggle('active',x===s)})})});
+  var saved=document.getElementById('saved'),savedTxt=document.getElementById('savedTxt'),st;
+  function autosave(){saved.classList.add('saving');savedTxt.textContent=lang==='id'?'Menyimpan…':'Saving…';clearTimeout(st);
+    st=setTimeout(function(){saved.classList.remove('saving');savedTxt.textContent=T('savedNow','Saved just now')},700)}
+  var flow=document.querySelector('.flow');
+  function mark(key,done){var s=document.querySelector('.step[data-step="'+key+'"]');s.classList.toggle('done',done);
+    s.querySelector('.num').innerHTML=done?'<svg class="i"><use href="#i-check"/></svg>':String(['name','brand','start','air'].indexOf(key)+1);
+    document.querySelector('[data-ck="'+key+'"]').classList.toggle('done',done)}
+  function update(){
+    var n=nameIn.value.trim()!=='',b=brand.value!=='',s=document.querySelector('input[name="start"]:checked'),p=document.querySelector('input[name="prog"]:checked'),later=document.getElementById('later').checked;
+    mark('name',n);mark('brand',b);mark('start',!!s);mark('air',!!p||later);
+    var c=(n?1:0)+(b?1:0)+(s?1:0);
+    document.getElementById('fill').style.width=(c/3*100)+'%';document.getElementById('progTxt').textContent=c+' / 3';
+    document.getElementById('create').setAttribute('aria-disabled',String(c<3));
+    document.getElementById('pvName').textContent=nameIn.value||T('untitled','Untitled catalog');
+    document.getElementById('pvBrand').textContent=brand.value||'—';
+    document.getElementById('pvStart').textContent=!s?'—':s.value==='dup'?(lang==='id'?'Duplikat':'Duplicate'):(lang==='id'?'Kosong':'Blank');
+    document.getElementById('pvAir').textContent=later?(lang==='id'?'Nanti':'Later'):p?p.value.trim()+' · '+document.getElementById('chan').value:'—';
+    document.getElementById('dupPick').hidden=!(s&&s.value==='dup')}
+  ['input','change'].forEach(function(ev){flow.addEventListener(ev,update);flow.addEventListener(ev,autosave)});
+  document.querySelectorAll('.sugg button').forEach(function(b){b.addEventListener('click',function(){nameIn.value=b.textContent;update();autosave();nameIn.focus()})});
+  document.getElementById('newBrandBtn').addEventListener('click',function(){document.getElementById('newBrandRow').hidden=false;document.getElementById('newBrandIn').focus()});
+  document.getElementById('addBrand').addEventListener('click',function(){var v=document.getElementById('newBrandIn').value.trim();if(!v)return;
+    var o=document.createElement('option');o.textContent=v;brand.appendChild(o);brand.value=v;document.getElementById('newBrandRow').hidden=true;update();autosave()});
+  setLang(root.lang==='id'?'id':'en');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New catalog · Step 1 Catalog</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1A55C9}a:hover{color:#12408F}
+.lbl{font-size:14px;font-weight:600;color:#111A2E}
+.hint{font-size:13px;color:#4A5568;margin:0}
+.inp{height:44px;border:1px solid #CBD3DF;border-radius:8px;padding:0 12px;font:inherit;font-size:15px;color:#111A2E;background:#FFFFFF;box-sizing:border-box;width:100%}
+</style>
+</helmet>
+<div style="min-height: 980px; background: #F3F5F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #111A2E; display: flex; flex-direction: column">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #DDE2EA; padding: 0 32px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px">
+    <a href="Main.dc.html" style="display: inline-flex; align-items: center; gap: 8px; color: #111A2E; text-decoration: none; font-weight: 600; font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Catalogs</a>
+    <span style="font-weight: 700; font-size: 16px">New catalog</span>
+    <ol aria-label="Steps" style="list-style: none; margin: 0 auto; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1E5BD8" aria-current="step"><span style="width: 26px; height: 26px; border-radius: 50%; background: #1E5BD8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px">1</span>Catalog</li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #CBD3DF"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #A9B4C4; display: flex; align-items: center; justify-content: center; font-size: 13px">2</span>Products</li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #CBD3DF"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #A9B4C4; display: flex; align-items: center; justify-content: center; font-size: 13px">3</span>Placement</li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #CBD3DF"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #A9B4C4; display: flex; align-items: center; justify-content: center; font-size: 13px">4</span>Review</li>
+    </ol>
+    <span style="font-size: 13px; color: #4A5568">Draft saved</span>
+  </header>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 32px; padding: 32px; max-width: 1280px; width: 100%; margin: 0 auto; box-sizing: border-box">
+    <section style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 26px; font-weight: 700">Name and look</h1>
+        <p class="hint" style="font-size: 15px">Viewers see this catalog as a Shop panel under the live player.</p>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+        <label style="display: flex; flex-direction: column; gap: 8px">
+          <span class="lbl">Catalog name</span>
+          <input class="inp" type="text" value="Fashion for RCTI">
+          <span class="hint">Only the team sees this. Shown in the catalogs list.</span>
+        </label>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <label style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+            <span class="lbl">Brand</span>
+            <select class="inp"><option>Shopee Affiliate</option><option>[brand]</option></select>
+            <a href="#" style="font-size: 13px; font-weight: 600">New brand</a>
+          </label>
+          <label style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+            <span class="lbl">Product source</span>
+            <select class="inp"><option>Shopee</option><option>Manual or Excel upload</option></select>
+            <span class="hint">Shopee keeps prices and stock in sync.</span>
+          </label>
+        </div>
+      </div>
+
+      <fieldset style="margin: 0; background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <legend style="padding: 0 4px; font-size: 16px; font-weight: 700">Theme</legend>
+        <p class="hint">Replaces the six color fields. Each theme sets title, background, price, rating and sold colors.</p>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+          <label style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border: 2px solid #1E5BD8; border-radius: 10px; cursor: pointer">
+            <span style="display: flex; gap: 4px" aria-hidden="true"><span style="flex: 1; height: 28px; border-radius: 4px; background: #0F1B33"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #FFFFFF; border: 1px solid #DDE2EA"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #EE4D2D"></span></span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><input type="radio" name="theme" checked>Night</span>
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border: 1px solid #CBD3DF; border-radius: 10px; cursor: pointer">
+            <span style="display: flex; gap: 4px" aria-hidden="true"><span style="flex: 1; height: 28px; border-radius: 4px; background: #FFFFFF; border: 1px solid #DDE2EA"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #111A2E"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #EE4D2D"></span></span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><input type="radio" name="theme">Day</span>
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border: 1px solid #CBD3DF; border-radius: 10px; cursor: pointer">
+            <span style="display: flex; gap: 4px" aria-hidden="true"><span style="flex: 1; height: 28px; border-radius: 4px; background: #1E5BD8"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #FFFFFF; border: 1px solid #DDE2EA"></span><span style="flex: 1; height: 28px; border-radius: 4px; background: #C8205E"></span></span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><input type="radio" name="theme">RCTI+</span>
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border: 1px dashed #A9B4C4; border-radius: 10px; cursor: pointer">
+            <span style="height: 28px; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 13px" aria-hidden="true">Brand colors</span>
+            <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600"><input type="radio" name="theme">Custom</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset style="margin: 0; background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+        <legend style="padding: 0 4px; font-size: 16px; font-weight: 700">Buying</legend>
+        <label style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+          <span style="display: flex; flex-direction: column; gap: 2px"><span class="lbl">Show a Buy button</span><span class="hint">Without it, viewers tap a product to see details first.</span></span>
+          <input type="checkbox" checked style="width: 20px; height: 20px">
+        </label>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span class="lbl">When a viewer taps a product, open it in</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <label style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border: 2px solid #1E5BD8; border-radius: 8px; font-size: 14px"><input type="radio" name="open" checked>The RCTI+ app</label>
+            <label style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border: 1px solid #CBD3DF; border-radius: 8px; font-size: 14px"><input type="radio" name="open">The phone’s browser</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px">
+        <a href="Main.dc.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 10px; border: 1px solid #CBD3DF; background: #FFFFFF; color: #111A2E; text-decoration: none; font-weight: 600; font-size: 15px">Save draft and exit</a>
+        <a href="Step2_Products.dc.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 24px; border-radius: 10px; background: #1E5BD8; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Next: Products</a>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 320px; max-width: 360px; display: flex; flex-direction: column; gap: 12px; align-items: center">
+      <span style="align-self: flex-start; font-size: 14px; font-weight: 600">Live preview</span>
+      <dc-import name="PhonePreview" theme="night" products="3" hint-size="320px,640px"></dc-import>
+      <span class="hint" style="text-align: center">Updates as you change the theme and buying options.</span>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

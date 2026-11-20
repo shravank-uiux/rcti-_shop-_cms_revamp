@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>New catalog · Step 2 Products</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1A55C9}a:hover{color:#12408F}
+.hint{font-size:13px;color:#4A5568;margin:0}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid #CBD3DF;background:#FFFFFF;font:inherit;font-size:14px;color:#111A2E}
+</style>
+</helmet>
+<div style="min-height: 980px; background: #F3F5F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #111A2E; display: flex; flex-direction: column">
+
+  <header style="background: #FFFFFF; border-bottom: 1px solid #DDE2EA; padding: 0 32px; min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px">
+    <a href="Main.dc.html" style="display: inline-flex; align-items: center; gap: 8px; color: #111A2E; text-decoration: none; font-weight: 600; font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Catalogs</a>
+    <span style="font-weight: 700; font-size: 16px">Fashion for RCTI</span>
+    <ol aria-label="Steps" style="list-style: none; margin: 0 auto; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #111A2E"><a href="Step1_Catalog.dc.html" style="display: flex; align-items: center; gap: 8px; color: inherit; text-decoration: none"><span style="width: 26px; height: 26px; border-radius: 50%; background: #E6EEFC; color: #1E5BD8; display: flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></span>Catalog</a></li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #1E5BD8"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1E5BD8" aria-current="step"><span style="width: 26px; height: 26px; border-radius: 50%; background: #1E5BD8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px">2</span>Products</li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #CBD3DF"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #A9B4C4; display: flex; align-items: center; justify-content: center; font-size: 13px">3</span>Placement</li>
+      <li aria-hidden="true" style="width: 32px; height: 1px; background: #CBD3DF"></li>
+      <li style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568"><span style="width: 26px; height: 26px; border-radius: 50%; border: 1px solid #A9B4C4; display: flex; align-items: center; justify-content: center; font-size: 13px">4</span>Review</li>
+    </ol>
+    <span style="font-size: 13px; color: #4A5568">Draft saved</span>
+  </header>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 24px; padding: 32px; box-sizing: border-box">
+    <section style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h1 style="margin: 0; font-size: 26px; font-weight: 700">Add products from Shopee</h1>
+        <p class="hint" style="font-size: 15px">Search by product name, product ID or store. Prices and stock stay in sync with Shopee.</p>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px">
+        <label style="flex: 1 1 320px; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border: 1px solid #CBD3DF; border-radius: 10px; background: #FFFFFF">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A5568" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search Shopee</span>
+          <input type="search" value="matcha" style="border: 0; outline: none; font: inherit; font-size: 15px; flex: 1; min-width: 0; background: transparent">
+        </label>
+        <label style="display: flex"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Sort</span><select style="height: 44px; border: 1px solid #CBD3DF; border-radius: 10px; padding: 0 12px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Best selling</option><option>Highest rated</option><option>Price, low to high</option></select></label>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px" aria-label="Category">
+        <button type="button" class="chip" style="background: #111A2E; color: #FFFFFF; border-color: #111A2E">All</button>
+        <button type="button" class="chip">Food and drink</button>
+        <button type="button" class="chip">Beauty</button>
+        <button type="button" class="chip">Women’s fashion</button>
+        <button type="button" class="chip">Men’s fashion</button>
+        <button type="button" class="chip">Home</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+        <label style="background: #FFFFFF; border: 2px solid #1E5BD8; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" checked aria-label="Select Naturabite Pure Matcha Powder" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">Naturabite Pure Matcha Powder Premium 100gr</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Food and drink · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 2px solid #1E5BD8; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" checked aria-label="Select Permen Matcha Coffee Bebas Gula" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">Permen Matcha Coffee Bebas Gula</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Food and drink · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" aria-label="Select Bubuk Matcha 1Kg" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">Bubuk Matcha 1Kg Matcha Powder Tea Series</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Food and drink · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 2px solid #1E5BD8; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" checked aria-label="Select Dorskin Matcha Glow Dream Mask" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">Dorskin Twin Pack Matcha Glow Dream Mask</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Beauty · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 2px solid #1E5BD8; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" checked aria-label="Select Belia Hanasui Lip Cream Boba" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">Hanasui Lip Cream Series Boba</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Beauty · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" aria-label="Select matcha latte sachet" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">[Product name]</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span style="font-size: 13px; color: #8A4B00; font-weight: 600">Low stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" aria-label="Select product" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">[Product name]</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Food and drink · In stock</span></span>
+        </label>
+        <label style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer">
+          <span style="position: relative; height: 140px; background: #E8ECF2; display: flex; align-items: center; justify-content: center; color: #4A5568; font-size: 12px">Product image<input type="checkbox" aria-label="Select product" style="position: absolute; top: 10px; left: 10px; width: 20px; height: 20px"></span>
+          <span style="padding: 12px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 14px; font-weight: 600; line-height: 1.35">[Product name]</span><span style="font-size: 15px; font-weight: 700">Rp [price]</span><span class="hint">Food and drink · In stock</span></span>
+        </label>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 340px; max-width: 380px; display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border: 1px solid #DDE2EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: baseline; justify-content: space-between"><h2 style="margin: 0; font-size: 17px; font-weight: 700">In this catalog</h2><span style="font-size: 14px; color: #4A5568">4 products</span></div>
+        <p class="hint">Drag to set the order viewers see. Pinned products stay on top.</p>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+          <li style="display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid #DDE2EA; border-radius: 10px; background: #F7F9FC">
+            <button type="button" aria-label="Drag to reorder" style="border: 0; background: transparent; color: #4A5568; cursor: grab; padding: 4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+            <span style="width: 40px; height: 40px; border-radius: 6px; background: #E8ECF2; flex: none"></span>
+            <span style="flex: 1; min-width: 0; font-size: 13px; font-weight: 600; line-height: 1.3">Naturabite Pure Matcha Powder</span>
+            <button type="button" aria-label="Unpin" aria-pressed="true" style="border: 0; background: #E6EEFC; color: #1E5BD8; border-radius: 6px; width: 32px; height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 3l6 6-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/></svg></button>
+            <button type="button" aria-label="Remove" style="border: 0; background: transparent; color: #4A5568; width: 32px; height: 32px; font-size: 18px">×</button>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid #DDE2EA; border-radius: 10px">
+            <button type="button" aria-label="Drag to reorder" style="border: 0; background: transparent; color: #4A5568; cursor: grab; padding: 4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+            <span style="width: 40px; height: 40px; border-radius: 6px; background: #E8ECF2; flex: none"></span>
+            <span style="flex: 1; min-width: 0; font-size: 13px; font-weight: 600; line-height: 1.3">Permen Matcha Coffee Bebas Gula</span>
+            <button type="button" aria-label="Pin to top" aria-pressed="false" style="border: 0; background: transparent; color: #4A5568; border-radius: 6px; width: 32px; height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 3l6 6-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/></svg></button>
+            <button type="button" aria-label="Remove" style="border: 0; background: transparent; color: #4A5568; width: 32px; height: 32px; font-size: 18px">×</button>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid #DDE2EA; border-radius: 10px">
+            <button type="button" aria-label="Drag to reorder" style="border: 0; background: transparent; color: #4A5568; cursor: grab; padding: 4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+            <span style="width: 40px; height: 40px; border-radius: 6px; background: #E8ECF2; flex: none"></span>
+            <span style="flex: 1; min-width: 0; font-size: 13px; font-weight: 600; line-height: 1.3">Dorskin Matcha Glow Dream Mask</span>
+            <button type="button" aria-label="Pin to top" aria-pressed="false" style="border: 0; background: transparent; color: #4A5568; border-radius: 6px; width: 32px; height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 3l6 6-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/></svg></button>
+            <button type="button" aria-label="Remove" style="border: 0; background: transparent; color: #4A5568; width: 32px; height: 32px; font-size: 18px">×</button>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; padding: 8px; border: 1px solid #DDE2EA; border-radius: 10px">
+            <button type="button" aria-label="Drag to reorder" style="border: 0; background: transparent; color: #4A5568; cursor: grab; padding: 4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+            <span style="width: 40px; height: 40px; border-radius: 6px; background: #E8ECF2; flex: none"></span>
+            <span style="flex: 1; min-width: 0; font-size: 13px; font-weight: 600; line-height: 1.3">Hanasui Lip Cream Series Boba</span>
+            <button type="button" aria-label="Pin to top" aria-pressed="false" style="border: 0; background: transparent; color: #4A5568; border-radius: 6px; width: 32px; height: 32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 3l6 6-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/></svg></button>
+            <button type="button" aria-label="Remove" style="border: 0; background: transparent; color: #4A5568; width: 32px; height: 32px; font-size: 18px">×</button>
+          </li>
+        </ul>
+        <p class="hint" style="display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#137A4B" stroke-width="2.4" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Synced with Shopee [time]</p>
+        <label style="display: flex; align-items: center; gap: 10px; font-size: 14px"><input type="checkbox" checked style="width: 18px; height: 18px">Hide products when sold out</label>
+      </div>
+      <div style="display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap">
+        <a href="Step1_Catalog.dc.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 20px; border-radius: 10px; border: 1px solid #CBD3DF; background: #FFFFFF; color: #111A2E; text-decoration: none; font-weight: 600; font-size: 15px">Back</a>
+        <a href="Step3_Placement.dc.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 24px; border-radius: 10px; background: #1E5BD8; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Next: Placement</a>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
